@@ -3,6 +3,7 @@ import hamburger from "../assets/hamburger.svg"
 import hamburger_active from "../assets/hamburger-active.svg"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Card from "./Card";
 
 
 const Navbar = () => {
@@ -46,7 +47,8 @@ const Navbar = () => {
               Home
             </li>
             <li 
-              className='cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold'>
+              className='cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold'
+              onClick={() => navigate('/seiyu')}>
               Seiyu
             </li>
             <li 
@@ -73,30 +75,30 @@ const Navbar = () => {
         {/* DROP MENU */}
         <div  className={`${toggleNavbar ? 'block' : 'hidden'} lg:hidden`}>
           <ul className='text-lg font-kenia flex flex-col gap-1 bg-gradient-to-r from-red-700 to-gray-400'>
-            <li className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'>
+            <li 
+              className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'
+              onClick={() => navigate('/')}>
               Home
             </li>
-            <li className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'>
+            <li 
+              className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'
+              onClick={() => navigate('/seiyu')}>
               Seiyu
             </li>
-            <li className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'>
+            <li 
+              className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'
+              onClick={() => navigate('/about')}>
               About
             </li>
           </ul>
         </div>
-                <div>
-        {searchResults.map((anime) => (
-          <div key={anime.mal_id} className="bg-black rounded-lg m-3 p-1 flex items-center">
-            <div className='cursor-pointer'>
-              <img
-              className='rounded-t-lg w-full h-20 sm:h-40 lg:h-72 hover:h-16 sm:hover:h-36 lg:hover:h-64'
-              src={anime.images.jpg.image_url} 
-              alt='top anime'/>
-              <h1 className='cursor-pointer text-center font-kenia text-white hover:text-blue-700'>{anime.title}</h1>
-            </div>
-          </div>
+
+        <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4 rounded-b-lg'>
+          {searchResults.map(anime => (
+          <Card all={anime} />
           ))}
         </div>
+
     </nav>
   )
 }

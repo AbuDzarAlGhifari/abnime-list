@@ -3,6 +3,7 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import Home from './Pages/Home'
 import About from "./Pages/About";
+import Seiyu from "./Pages/Seiyu";
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/seiyu' element={<Seiyu />} />
         <Route path='/about' element={<About />}></Route>
       </Routes>
       {/* <Coba/> */}

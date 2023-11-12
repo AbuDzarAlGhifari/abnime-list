@@ -16,14 +16,14 @@ const AnimeList = () => {
     const fetchUp = async () => {
         const data = await axios.get("https://api.jikan.moe/v4/seasons/upcoming?limit=12");
         setAnimeUpcoming(data.data.data);
-        console.log(data.data.data)
+        // console.log(data.data.data)
     };
 
     const fetchNow = async () => {
       const data = await axios.get("https://api.jikan.moe/v4/seasons/now?limit=12");
       setAnimeSeasonNow(data.data.data);
-      console.log(data.data.data)
-  };
+      // console.log(data.data.data)
+    };
 
     useEffect(() => {
         fetchTop();
@@ -32,8 +32,8 @@ const AnimeList = () => {
       }, []);
 
   return (
-    <div className="container justify-center text-sm bg-gradient-to-bl from-gray-400 to-red-700">
-
+    <div className="container justify-center pt-4 text-sm bg-gradient-to-bl from-gray-400 to-red-700">
+        
         <h1 className="mx-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Anime Season Now ----------- -----------</h1>
         <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4 rounded-b-lg'>
           {animeSeasonNow?.map(b => (
@@ -54,7 +54,7 @@ const AnimeList = () => {
           <Card all={a} />
           ))}
         </div>
-        
+
     </div>
 
   )
