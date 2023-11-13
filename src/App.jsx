@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Home from './Pages/Home'
 import About from "./Pages/About";
 import Seiyu from "./Pages/Seiyu";
+import DetailAnime from "./components/DetailAnime";
 
 
 const App = () => {
@@ -14,7 +15,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/seiyu' element={<Seiyu />} />
-        <Route path='/about' element={<About />}></Route>
+        <Route path='/about' element={<About />} />
+        <Route path='/anime/:id' element={<DetailAnime />} />
       </Routes>
       {/* <Coba/> */}
     </BrowserRouter>

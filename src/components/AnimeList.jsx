@@ -32,7 +32,7 @@ const AnimeList = () => {
       }, []);
 
   return (
-    <div className="container justify-center pt-4 text-sm bg-gradient-to-bl from-gray-400 to-red-700">
+    <div className="container justify-center py-4 text-sm bg-gradient-to-bl from-gray-400 to-red-700">
         
         <h1 className="mx-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Anime Season Now ----------- -----------</h1>
         <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4 rounded-b-lg'>
@@ -49,7 +49,7 @@ const AnimeList = () => {
         </div>
 
         <h1 className="mx-4 mt-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Up Coming Anime ----------- -----------</h1>
-        <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4 rounded-b-lg'>
+        <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4  rounded-b-lg'>
           {animeUpcoming?.map(a => (
           <Card all={a} />
           ))}
