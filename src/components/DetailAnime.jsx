@@ -41,7 +41,7 @@ function DetailAnime() {
 
     return (
         <div>
-            <h1 className='items-center text-center'>
+            <h1 className='items-center text-center font-kenia'>
                 {title}</h1>
             <div className="details">
                 <div className="detail">

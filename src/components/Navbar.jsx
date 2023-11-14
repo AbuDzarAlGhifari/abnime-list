@@ -78,7 +78,7 @@ const Navbar = () => {
         {/* DROP MENU */}
         <div  className={`${toggleNavbar ? 'block' : 'hidden'} lg:hidden`}>
           <ul 
-            className='text-lg font-kenia flex flex-col gap-1 bg-gradient-to-r from-red-700 to-gray-400'
+            className='text-sm sm:text-lg font-kenia flex flex-col gap-1 bg-gradient-to-r from-red-700 to-gray-400'
             onClick={() => setToggleNavbar(toggleNavbar ? false : true)}>
             <li 
               className='cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4'
