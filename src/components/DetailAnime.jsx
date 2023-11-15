@@ -40,58 +40,41 @@ function DetailAnime() {
     }, [])
 
     return (
-        <div>
-            <h1 className='items-center text-center font-kenia'>
+        <div className="container justify-center py-4 bg-gradient-to-bl from-gray-400 to-red-700">
+            <h1 className='items-center text-sm sm:text-lg lg:text-2xl m-2 text-center font-kenia'>
                 {title}</h1>
-            <div className="details">
-                <div className="detail">
-                    <div className="image">
-                        <img src={images?.jpg.large_image_url} alt="" />
-                    </div>
-                    <div className="anime-details">
-                        <p><span>Aired:</span><span>{aired?.string}</span></p>
-                        <p><span>Rating:</span><span>{rating}</span></p>
-                        <p><span>Rank:</span><span>{rank}</span></p>
-                        <p><span>Score:</span><span>{score}</span></p>
-                        <p><span>Scored By:</span><span>{scored_by}</span></p>
-                        <p><span>Popularity:</span><span>{popularity}</span></p>
-                        <p><span>Status:</span><span>{status}</span></p>
-                        <p><span>Source:</span><span>{source}</span></p>
-                        <p><span>Season:</span><span>{season}</span></p>
-                        <p><span>Duration:</span><span>{duration}</span></p>
-                    </div>
+            <div className=" flex bg-slate-600 p-4 mx-6 rounded-lg">
+                <img 
+                    className='rounded-lg h-48 sm:h-60 lg:h-80'
+                    src={images?.jpg.large_image_url} alt="" 
+                />
+                <div className="ml-10 text-white text-xs sm:text-sm lg:text-lg">
+                    <ul>
+                        <li><span>Aired: </span><span className="ml-2 ">{aired?.string}</span></li>
+                        <li><span>Rank: </span><span className="ml-2">{rank}</span></li>
+                        <li><span>Score: </span><span className="ml-2">{score}</span></li>
+                        <li><span>Popularity: </span><span className="ml-2">{popularity}</span></li>
+                        <li><span>Status: </span><span className="ml-2">{status}</span></li>
+                        <li><span>Source: </span><span className="ml-2">{source}</span></li>
+                        <li><span>Season: </span><span className="ml-2">{season}</span></li>
+                        <li><span>Duration: </span><span className="ml-2">{duration}</span></li>    
+                    </ul>
                 </div>
-                <p className="description">
-                    {showMore ? synopsis : synopsis?.substring(0, 450) + '...'}
-                    <button onClick={() => {
-                        setShowMore(!showMore)
-                    }}>{showMore ? 'Show Less': 'Read More'}</button>
-                </p>
             </div>
-            {/* <h3 className="title">Trailer</h3>
-            <div className="trailer-con">
-                {trailer?.embed_url ? 
-                    <iframe 
-                        src={trailer?.embed_url} 
-                        title="Inline Frame Example"
-                        width="800"
-                        height="450"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen>
-                    </iframe> :
-                    <h3>Trailer not available</h3>
-                }
-            </div> */}
-            <h3 className="title">Characters</h3>
-            <div className="characters grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4  rounded-b-lg">
+            
+            <h3 className="pt-8 items-center text-sm sm:text-lg lg:text-2xl m-2 text-center font-kenia">
+                Characters
+            </h3>
+            <div className="p-4 grid grid-cols-3 gap-5 sm:grid-cols-4 lg:grid-cols-6 bg-slate-600 mx-4 text-white  rounded-lg">
                 {characters?.map((character, index) => {
                     const {role} = character
                     const {images, name, mal_id} = character.character
-                    return <Link to={`/character/${mal_id}`} key={index}>
-                        <div className="character">
-                            <img src={images?.jpg.image_url} alt="" />
-                            <h4>{name}</h4>
-                            <p>{role}</p>
+                    return <Link to={`${mal_id}`} key={index}>
+                        <div>
+                            <img className='rounded-lg'
+                            src={images?.jpg.image_url} alt="" />
+                            <h4 className='text-center tex'>{name}</h4>
+                            <p className='text-center text-yellow-200'>{role}</p>
                         </div>
                     </Link>
                 })}
