@@ -7,15 +7,13 @@ function DetailAnime() {
     //state
     const [anime, setAnime] = React.useState({})
     const [characters, setCharacters] = React.useState([])
-    const [showMore, setShowMore] = React.useState(false)
 
     //destructure anime
     const {
-        title, synopsis, 
-        trailer,duration,aired, 
+        title, duration,aired, 
         season, images, rank, 
-        score,scored_by, popularity, 
-        status, rating, source } = anime
+        score, popularity, 
+        status, source } = anime
 
     //get anime based on id
     const getAnime = async (anime) => {
@@ -43,9 +41,9 @@ function DetailAnime() {
         <div className="container justify-center py-4 bg-gradient-to-bl from-gray-400 to-red-700">
             <h1 className='items-center text-sm sm:text-lg lg:text-2xl m-2 text-center font-kenia'>
                 {title}</h1>
-            <div className=" flex bg-slate-600 p-4 mx-6 rounded-lg">
+            <div className=" flex  bg-slate-600 p-4 mx-6 rounded-lg">
                 <img 
-                    className='rounded-lg h-48 sm:h-60 lg:h-80'
+                    className='rounded-lg h-48 sm:h-60 lg:h-96'
                     src={images?.jpg.large_image_url} alt="" 
                 />
                 <div className="ml-10 text-white text-xs sm:text-sm lg:text-lg">
@@ -65,12 +63,12 @@ function DetailAnime() {
             <h3 className="pt-8 items-center text-sm sm:text-lg lg:text-2xl m-2 text-center font-kenia">
                 Characters
             </h3>
-            <div className="p-4 grid grid-cols-3 gap-5 sm:grid-cols-4 lg:grid-cols-6 bg-slate-600 mx-4 text-white  rounded-lg">
+            <div className="p-4 grid grid-cols-3  gap-5 sm:grid-cols-4 lg:grid-cols-6 bg-slate-600 mx-4 text-white  rounded-lg">
                 {characters?.map((character, index) => {
                     const {role} = character
                     const {images, name, mal_id} = character.character
                     return <Link to={`${mal_id}`} key={index}>
-                        <div>
+                        <div className='border-2 rounded-lg'>
                             <img className='rounded-lg'
                             src={images?.jpg.image_url} alt="" />
                             <h4 className='text-center tex'>{name}</h4>

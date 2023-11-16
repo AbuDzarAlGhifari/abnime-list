@@ -40,9 +40,8 @@ const AnimeList = () => {
           <Card all={b} />
           ))}
         </div>
-
-        <h1 className="mx-4 mt-4 pt-4 font-kenia  text-center lg:text-lg bg-gray-400 rounded-t-lg">----------- ----------- Popular Anime ----------- -----------</h1>
-        <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-gray-400 mx-4 rounded-b-lg'>
+        <h1 className="mx-4 mt-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Popular Anime ----------- -----------</h1>
+        <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4  rounded-b-lg'>
           {animeTop?.map(top => (
           <Card all={top} />
           ))}
