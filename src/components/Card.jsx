@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Card = ({all}) => {
   return (
-  <div className='bg-black  rounded-lg m-3 font-kenia text-white hover:text-black hover:bg-gray-400'>
+  <div className='bg-black border rounded-lg m-3 font-kenia text-white hover:text-black hover:bg-gray-400'>
     <Link to={`/anime/${all.mal_id}`}>
     <div className='cursor-pointer p-0.5 hover:p-0 flex justify-center items-center'>
     <img

@@ -7,6 +7,7 @@ import Seiyu from "./Pages/Seiyu";
 import DetailAnime from "./components/DetailAnime";
 import DetailSeiyu from "./components/DetailSeiyu";
 import Characters from "./components/Characters";
+import Footer from "./components/Footer";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/seiyu/:id' element={<DetailSeiyu/>} />
         <Route path='/character/:id' element={<Characters/>} ></Route>
       </Routes>
+      <Footer />
       {/* <Coba/> */}
     </BrowserRouter>
 

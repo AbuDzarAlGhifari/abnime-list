@@ -32,22 +32,31 @@ const AnimeList = () => {
       }, []);
 
   return (
-    <div className="container justify-center py-4 text-sm bg-gradient-to-bl from-gray-400 to-red-700">
-        
-        <h1 className="mx-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Anime Season Now ----------- -----------</h1>
+    <div className=" justify-center py-4 text-sm bg-gradient-to-bl from-gray-400 to-red-700">
+        <div className="flex justify-between mx-4 mt-3 pt-4 px-4 font-kenia text-decoration-line: underline text-white lg:text-lg bg-red-700 rounded-t-lg">
+          <h1 >Anime Top Season</h1>
+          <h1 className="cursor-pointer text-yellow-400">Lainnya..</h1>
+        </div>
         <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4 rounded-b-lg'>
           {animeSeasonNow?.map(b => (
           <Card all={b} />
           ))}
         </div>
-        <h1 className="mx-4 mt-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Popular Anime ----------- -----------</h1>
+        
+        <div className="flex justify-between mx-4 mt-3 pt-4 px-4 font-kenia text-decoration-line: underline text-white lg:text-lg bg-red-700 rounded-t-lg">
+          <h1 >Anime Popular</h1>
+          <h1 className="cursor-pointer text-yellow-400">Lainnya..</h1>
+        </div>
         <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4  rounded-b-lg'>
           {animeTop?.map(top => (
           <Card all={top} />
           ))}
         </div>
 
-        <h1 className="mx-4 mt-4 pt-4 font-kenia text-white text-center lg:text-lg bg-red-700 rounded-t-lg">----------- ----------- Up Coming Anime ----------- -----------</h1>
+        <div className="flex justify-between mx-4 mt-3 pt-4 px-4 font-kenia text-decoration-line: underline text-white lg:text-lg bg-red-700 rounded-t-lg">
+          <h1 >Up Coming Anime</h1>
+          <h1 className="cursor-pointer text-yellow-400">Lainnya..</h1>
+        </div>
         <div className='grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-red-700 mx-4  rounded-b-lg'>
           {animeUpcoming?.map(a => (
           <Card all={a} />

@@ -4,22 +4,26 @@ import { Link, useParams } from 'react-router-dom'
 function DetailAnime() {
     const {id} = useParams()
 
+    const style = {
+        whiteSpace: 'pre-line',
+    };
+
     //state
     const [anime, setAnime] = React.useState({})
     const [characters, setCharacters] = React.useState([])
-    
     const [showMore, setShowMore] = React.useState(false)
 
     //destructure anime
     const {
-        title, aired, episodes, synopsis, season, images, score, 
-        status, source } = anime
+        title, images, episodes, status, aired, source, score, 
+        rating, rank, synopsis } = anime
 
     //get anime based on id
     const getAnime = async (anime) => {
         const response = await fetch(`https://api.jikan.moe/v4/anime/${anime}`)
         const data = await response.json()
         setAnime(data.data)
+        console.log(data.data)
     }
 
     //get characters
@@ -38,51 +42,66 @@ function DetailAnime() {
     }, [])
 
     return (
-        <div className="container justify-center py-4 bg-gradient-to-bl from-gray-400 to-red-700">
+        <div className="justify-center py-4 bg-gradient-to-bl from-gray-400 to-red-700">
 
             <div className=" flex bg-slate-600 p-4 mx-6 rounded-lg">
                 <img 
                     className='rounded-lg h-48 sm:h-60 lg:h-96'
                     src={images?.jpg.large_image_url} alt="" 
                 />
-                <div className="ml-10 text-white text-xs sm:text-sm lg:text-lg">
-                    <ul>
-                        <h1 className='text-yellow-200 text-sm sm:text-lg lg:text-2xl font-kenia'>
+                <div className=" ml-10 text-white text-xs sm:text-sm lg:text-lg">
+                    <h1 className='text-yellow-200 text-sm sm:text-lg lg:text-2xl font-kenia'>
                         {title}
-                        </h1>
-                        <li><span>Aired: </span><span className="ml-2 ">{aired?.string}</span></li>
-                        <li><span>Episode: </span><span className="ml-2">{episodes}</span></li>
-                        <li><span>Score: </span><span className="ml-2">{score}</span></li>
-                        <li><span>Status: </span><span className="ml-2">{status}</span></li>
-                        <li><span>Source: </span><span className="ml-2">{source}</span></li>
-                        <li><span>Season: </span><span className="ml-2">{season}</span></li>
-                        <li><span>Sinopsis: </span></li>
-                        <li><span className='hidden lg:block sm:block'>
-                            {showMore ? synopsis : synopsis?.substring(0, 450) + '...'}
-                            <button onClick={() => {
-                                    setShowMore(!showMore)
-                                    }}>{showMore ? 'Show Less': 'Read More'}
-                            </button>
-                        </span></li>  
-                    </ul>
+                    </h1>
+                    <div className='flex gap-1.5 sm:gap-6 lg:gap-8'>
+                        <div className='font-semibold'>
+                            <h3>Score :</h3>
+                            <h3>Rank :</h3>
+                            <h3>Episode :</h3>
+                            <h3>Status :</h3>
+                            <h3>Aired :</h3>
+                            <h3>Source :</h3>
+                            <h3>Raiting :</h3>
+
+                        </div>
+                        <div>
+                            <h3>{score}</h3>
+                            <h3>{rank}</h3>
+                            <h3>{episodes}</h3>
+                            <h3>{status}</h3>
+                            <h3>{aired?.string}</h3>
+                            <h3>{source}</h3>
+                            <h3>{rating}</h3>
+                        </div>
+                    </div>
+                    <h3 className='font-semibold pt-2'>Sinopsis</h3>
+                    <h3 style={style} className=''>
+                        {showMore ? synopsis : synopsis?.substring(0, 150) + '...'}
+                        <button
+                         className='text-yellow-300 font-semibold'
+                         onClick={() => {
+                            setShowMore(!showMore)
+                            }}>{showMore ? 'Show Less': 'Read More'}
+                        </button>
+                    </h3>
                 </div>
             </div>
-            
-            <h3 className="pt-8 items-center text-sm sm:text-lg lg:text-2xl m-2 text-center font-kenia">
-                Characters
-            </h3>
-            <div className="p-4 grid grid-cols-3  gap-5 sm:grid-cols-4 lg:grid-cols-6 bg-slate-600 mx-4 text-white  rounded-lg">
+
+            <h1 className="mx-6 mt-5 pt-4 px-4 font-kenia text-decoration-line: underline text-white lg:text-lg bg-slate-600 rounded-t-lg">Characters</h1>
+            <div className="mx-6 p-4 grid grid-cols-3  gap-5 sm:grid-cols-4 lg:grid-cols-6 bg-slate-600 text-white rounded-b-lg">
                 {characters?.map((character, index) => {
                     const {role} = character
                     const {images, name, mal_id} = character.character
-                    return <Link to={`/character/${mal_id}`} key={index}>
-                        <div>
-                            <img className='rounded-lg'
+                    return (
+                    <Link to={`/character/${mal_id}`} key={index}>
+                        <div className='border rounded-md bg-gray-800 p-0.5 hover:p-0 text-white hover:text-black hover:bg-slate-500'>
+                            <img className='rounded-t-md'
                             src={images?.jpg.image_url} alt="" />
-                            <h4 className='text-center tex'>{name}</h4>
+                            <h4 className='text-center'>{name}</h4>
                             <p className='text-center text-yellow-200'>{role}</p>
                         </div>
                     </Link>
+                    )
                 })}
             </div>
         </div>

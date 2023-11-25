@@ -5,19 +5,4 @@
 @tailwind utilities;
 
 
-    .details{
-        background-color: #fff;
-        border-radius: 20px;
-        padding: 2rem;
-        border: 5px solid #e5e7eb;
-        .detail{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            img{
-                border-radius: 7px;
-            }
-        }
-
-    }
-
 
