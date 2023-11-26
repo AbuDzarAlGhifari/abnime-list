@@ -1,12 +1,12 @@
-import React from 'react'
-import AnimeList from '../components/AnimeList'
+import React from "react";
+import AnimeList from "../components/AnimeList";
 
 const Home = () => {
   return (
     <div>
-      <AnimeList/>
+      <AnimeList />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

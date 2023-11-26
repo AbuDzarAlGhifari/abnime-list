@@ -1,13 +1,12 @@
-import React from 'react'
-import SeiyuList from '../components/SeiyuList'
-
+import React from "react";
+import SeiyuList from "../components/SeiyuList";
 
 const Seiyu = () => {
   return (
     <div>
-        <SeiyuList />
+      <SeiyuList />
     </div>
-  )
-}
+  );
+};
 
-export default Seiyu
+export default Seiyu;

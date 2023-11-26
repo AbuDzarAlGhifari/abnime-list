@@ -1,17 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React from 'react'
 import Navbar from './components/Navbar'
 import Home from './Pages/Home'
-import About from "./Pages/About";
-import Seiyu from "./Pages/Seiyu";
-import DetailAnime from "./components/DetailAnime";
-import DetailSeiyu from "./components/DetailSeiyu";
-import Characters from "./components/Characters";
-import Footer from "./components/Footer";
-
+import About from './Pages/About';
+import Seiyu from './Pages/Seiyu';
+import DetailAnime from './components/DetailAnime';
+import DetailSeiyu from './components/DetailSeiyu';
+import Characters from './components/Characters';
+import Footer from './components/Footer';
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <Navbar />
@@ -26,7 +24,6 @@ const App = () => {
       <Footer />
       {/* <Coba/> */}
     </BrowserRouter>
-
   )
 }
 
