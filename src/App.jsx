@@ -8,6 +8,7 @@ import DetailAnime from './components/DetailAnime';
 import DetailSeiyu from './components/DetailSeiyu';
 import Characters from './components/Characters';
 import Footer from './components/Footer';
+import Search from './Pages/Search';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/anime/:id' element={<DetailAnime />} />
         <Route path='/seiyu/:id' element={<DetailSeiyu/>} />
         <Route path='/character/:id' element={<Characters/>} ></Route>
+        <Route path='/search/:id' element={<Search/>} ></Route>
       </Routes>
       <Footer />
       {/* <Coba/> */}

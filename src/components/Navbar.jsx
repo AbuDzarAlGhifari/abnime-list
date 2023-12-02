@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import hamburger from "../assets/hamburger.svg";
 import hamburger_active from "../assets/hamburger-active.svg";
 import axios from "axios";
@@ -7,20 +7,27 @@ import Card from "./Card";
 
 const Navbar = () => {
   const navigate = useNavigate();
-
+  const searchRef = useRef();
+  
   //state
   const [toggleNavbar, setToggleNavbar] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.jikan.moe/v4/anime?q=${query}`
-      );
-      setSearchResults(response.data.data);
-    } catch (error) {
-      console.error("Error fetching search results:", error);
+  const handleSearch = async (event) => {
+    const keyword = searchRef.current.value;
+
+    if (!keyword || keyword.trim() == "") return;
+    if (event.key === "Enter" || event.type === "click") {
+      try {
+        const response = await axios.get(
+          `https://api.jikan.moe/v4/anime?q=${query}`
+        );
+        setSearchResults(response.data.data);
+        navigate(`/search/${query}`)
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
     }
   };
 
@@ -68,6 +75,8 @@ const Navbar = () => {
           <input
             className="cursor-pointer rounded-l-lg border-gray-400 border-2 pl-2 pr-2 border-transparent"
             value={query}
+            ref={searchRef}
+            onKeyDown={handleSearch}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button
