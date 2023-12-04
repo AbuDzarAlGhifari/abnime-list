@@ -3,16 +3,15 @@ import hamburger from "../assets/hamburger.svg";
 import hamburger_active from "../assets/hamburger-active.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Card from "./Card";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const searchRef = useRef();
-  
   //state
   const [toggleNavbar, setToggleNavbar] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  const navigate = useNavigate();
+  const searchRef = useRef(null);
 
   const handleSearch = async (event) => {
     const keyword = searchRef.current.value;
@@ -24,7 +23,8 @@ const Navbar = () => {
           `https://api.jikan.moe/v4/anime?q=${query}`
         );
         setSearchResults(response.data.data);
-        navigate(`/search/${query}`)
+        navigate(`/search/${query}`, { state: { searchResults } });
+        console.log(searchResults);
       } catch (error) {
         console.error("Error fetching search results:", error);
       }
@@ -61,7 +61,7 @@ const Navbar = () => {
             <li
               className="cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold"
               onClick={() => navigate("/seiyu")}>
-              Seiyu
+              People
             </li>
             <li
               className="cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold"
@@ -81,40 +81,56 @@ const Navbar = () => {
           />
           <button
             className=" border-gray-400 border-y-2 border-r-2 rounded-r-lg text-justify bg-red-700 text-white hover:bg-slate-400 hover:text-black hover:border-black"
-            onClick={handleSearch}>
+            onClick={(e) => handleSearch(e)}>
             Search
           </button>
         </div>
       </div>
       {/* DROP MENU */}
       <div className={`${toggleNavbar ? "block" : "hidden"} lg:hidden`}>
-        <ul
-          className="flex flex-col gap-1 font-kenia text-sm sm:text-lg bg-gradient-to-r from-red-700 to-gray-400"
-          onClick={() => setToggleNavbar(toggleNavbar ? false : true)}>
+        <ul className="flex flex-col gap-1 font-kenia text-sm sm:text-lg bg-gradient-to-r from-red-700 to-gray-400">
           <li
             className="cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4"
-            onClick={() => navigate("/")}>
+            onClick={() =>
+              `${navigate("/")}, ${setToggleNavbar(
+                toggleNavbar ? false : true
+              )}`
+            }>
             Home
           </li>
           <li
             className="cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4"
-            onClick={() => navigate("/seiyu")}>
-            Seiyu
+            onClick={() =>
+              `${navigate("/seiyu")}, ${setToggleNavbar(
+                toggleNavbar ? false : true
+              )}`
+            }>
+            People
           </li>
           <li
             className="cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4"
-            onClick={() => navigate("/about")}>
+            onClick={() =>
+              `${navigate("/about")}, ${setToggleNavbar(
+                toggleNavbar ? false : true
+              )}`
+            }>
             About
           </li>
+          <li className="sm:hidden lg:hidden ">
+            <input
+              className="cursor-pointer rounded-l-lg ml-2 mb-2 border-gray-400 border-2 pl-2 pr-2 border-transparent"
+              value={query}
+              ref={searchRef}
+              onKeyDown={handleSearch}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button
+              className=" border-gray-400 border-y-2 border-r-2 rounded-r-lg text-justify bg-red-700 text-white hover:bg-slate-400 hover:text-black hover:border-black"
+              onClick={(e) => handleSearch(e)}>
+              Search
+            </button>
+          </li>
         </ul>
-      </div>
-
-      <div
-        className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-gradient-to-r from-red-700 to-gray-400 mx-4 rounded-lg"
-        onClick={searchResults ? "block" : "hidden"}>
-        {searchResults.map((anime) => (
-          <Card all={anime} />
-        ))}
       </div>
     </nav>
   );
