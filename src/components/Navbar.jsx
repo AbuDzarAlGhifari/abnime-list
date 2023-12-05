@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import hamburger from "../assets/hamburger.svg";
 import hamburger_active from "../assets/hamburger-active.svg";
+import logo from "../assets/logo1.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +39,7 @@ const Navbar = () => {
         <div
           className="order-1 sm:order-2 lg:order-1"
           onClick={() => navigate("/")}>
-          <img className="cursor-pointer h-9" src="/src/assets/logo.png" alt="abnime logo"/>
+        <img className="cursor-pointer h-9" src={logo} alt="abnime logo"/>
         </div>
         {/* MENU */}
         <div
