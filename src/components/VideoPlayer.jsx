@@ -19,7 +19,7 @@ const VideoPlayer = ({ youtubeId }) => {
       <div className="fixed bottom-2 right-2">
         <button
           onClick={handleVideoPlayer}
-          className="underline font-semibold text-yellow-300 hover:text-blue-600 float-right">
+          className="underline font-semibold bg-transparent hover:bg-white rounded-sm text-yellow-300 hover:text-blue-600 float-right">
           Close
         </button>
         <Youtube

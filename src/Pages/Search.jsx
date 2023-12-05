@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Search = () => {
-
   const location = useLocation();
   const searchResults = location.state.searchResults || [];
 

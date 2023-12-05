@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  //state
+
   const [toggleNavbar, setToggleNavbar] = useState(false);
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -24,7 +24,7 @@ const Navbar = () => {
         );
         setSearchResults(response.data.data);
         navigate(`/search/${query}`, { state: { searchResults } });
-        console.log(searchResults);
+        // console.log(searchResults);
       } catch (error) {
         console.error("Error fetching search results:", error);
       }
@@ -75,7 +75,7 @@ const Navbar = () => {
           <input
             className="cursor-pointer rounded-l-lg border-gray-400 border-2 pl-2 pr-2 border-transparent"
             value={query}
-            placeholder="anime..."
+            placeholder="double enter/click"
             ref={searchRef}
             onKeyDown={handleSearch}
             onChange={(e) => setQuery(e.target.value)}
