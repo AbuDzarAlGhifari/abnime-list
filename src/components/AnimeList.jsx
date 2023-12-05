@@ -6,13 +6,11 @@ import { useNavigate } from "react-router-dom";
 const AnimeList = () => {
   const navigate = useNavigate();
 
-  //state
   const [animeTop, setAnimeTop] = useState([]);
   const [animeUpcoming, setAnimeUpcoming] = useState([]);
   const [animeSeasonNow, setAnimeSeasonNow] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //get Top Anime
   const getTopAnime = async () => {
     try {
       const data = await axios.get(
@@ -26,7 +24,6 @@ const AnimeList = () => {
     }
   };
 
-  //get Upcoming Anime
   const getAnimeUpcoming = async () => {
     try {
       const data = await axios.get(
@@ -40,7 +37,6 @@ const AnimeList = () => {
     }
   };
 
-  //get Anime Season Now
   const getAnimeSeasonNow = async () => {
     try {
       const data = await axios.get(
@@ -54,7 +50,6 @@ const AnimeList = () => {
     }
   };
 
-  //render
   useEffect(() => {
     getTopAnime();
     getAnimeUpcoming();

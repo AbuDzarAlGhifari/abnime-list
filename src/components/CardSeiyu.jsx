@@ -10,7 +10,7 @@ const CardSeiyu = ({ all }) => {
         <img
           className="rounded-t-lg w-full h-20 sm:h-40 lg:h-72"
           src={all.images.jpg.image_url}
-          alt="top anime"
+          alt={all.name}
         />
       </div>
       <h1 className="cursor-pointer text-center">{all.name}</h1>

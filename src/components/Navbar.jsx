@@ -38,7 +38,7 @@ const Navbar = () => {
         <div
           className="order-1 sm:order-2 lg:order-1"
           onClick={() => navigate("/")}>
-          <img className="cursor-pointer h-9" src="/src/assets/logo.png" />
+          <img className="cursor-pointer h-9" src="/src/assets/logo.png" alt="abnime logo"/>
         </div>
         {/* MENU */}
         <div
@@ -75,6 +75,7 @@ const Navbar = () => {
           <input
             className="cursor-pointer rounded-l-lg border-gray-400 border-2 pl-2 pr-2 border-transparent"
             value={query}
+            placeholder="anime..."
             ref={searchRef}
             onKeyDown={handleSearch}
             onChange={(e) => setQuery(e.target.value)}

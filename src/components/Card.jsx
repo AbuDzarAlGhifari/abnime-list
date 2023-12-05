@@ -11,6 +11,7 @@ const Card = ({ all, index }) => {
         <img
           className="rounded-t-lg w-full h-20 sm:h-40 lg:h-72 "
           src={all.images.jpg.image_url}
+          alt={all.images.webp.image_url}
         />
         <h1 className="cursor-pointer text-center">{all.title}</h1>
       </div>

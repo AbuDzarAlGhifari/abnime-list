@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import VideoPlayer from "./VideoPlayer";
 
 const DetailAnime = () => {
   const { id } = useParams();
 
-  //space style
   const style = {
     whiteSpace: "pre-line",
   };
 
-  //state
   const [anime, setAnime] = React.useState({});
   const [characters, setCharacters] = React.useState([]);
   const [showMore, setShowMore] = React.useState(false);
   const [loading, setLoading] = useState(true);
 
-  //destructure anime
   const {
     title,
     images,
@@ -28,9 +26,9 @@ const DetailAnime = () => {
     rank,
     popularity,
     synopsis,
+    trailer
   } = anime;
 
-  //get anime based on id
   const getAnime = async (anime) => {
     try {
       const response = await fetch(`https://api.jikan.moe/v4/anime/${anime}`);
@@ -42,7 +40,6 @@ const DetailAnime = () => {
     }
   };
 
-  //get characters
   const getCharacters = async (anime) => {
     try {
       const response = await fetch(
@@ -57,7 +54,6 @@ const DetailAnime = () => {
     }
   };
 
-  //render
   useEffect(() => {
     getAnime(id);
     getCharacters(id);
@@ -69,7 +65,7 @@ const DetailAnime = () => {
         <img
           className="rounded-lg h-40 sm:h-60 lg:h-96"
           src={images?.jpg.large_image_url}
-          alt=""
+          alt={images?.webp.large_image_url}
         />
         <div className=" ml-4 text-white text-xs sm:text-sm lg:text-lg">
           <h1 className="font-kenia text-yellow-200 text-sm sm:text-lg lg:text-2xl">
@@ -130,13 +126,14 @@ const DetailAnime = () => {
               to={`/character/${mal_id}`}
               key={index}
               className="border rounded-md bg-gray-800 p-0.5 hover:p-0 text-white hover:text-black hover:bg-slate-500 transition-all">
-              <img className="rounded-t-md" src={images?.jpg.image_url} />
+              <img className="rounded-t-md" src={images?.jpg.image_url} alt={images?.webp.image_url} />
               <h4 className="text-center">{name}</h4>
               <p className="text-center text-yellow-200">{role}</p>
             </Link>
           );
         })}
       </div>
+      <VideoPlayer youtubeId={trailer?.youtube_id}/>
     </div>
   );
 };

@@ -4,20 +4,16 @@ import { Link, useParams } from "react-router-dom";
 const Characters = () => {
   const { id } = useParams();
 
-  //space style
   const style = {
     whiteSpace: "pre-line",
   };
 
-  //state
   const [character, setCharacter] = React.useState([]);
   const [voices, setVoices] = React.useState([]);
   const [showMore, setShowMore] = React.useState(false);
 
-  //destructure character
   const { images, name, name_kanji, about } = character;
 
-  //get character based on id
   const getCharacter = async (character) => {
     try {
       const response = await fetch(
@@ -31,7 +27,6 @@ const Characters = () => {
     }
   };
 
-  //get Voice Actor
   const getVoices = async (character) => {
     try {
       const response = await fetch(
@@ -45,7 +40,6 @@ const Characters = () => {
     }
   };
 
-  //initial render
   useEffect(() => {
     getCharacter(id);
     getVoices(id);
@@ -57,15 +51,16 @@ const Characters = () => {
         <img
           className="h-48 sm:h-60 lg:h-96"
           src={images?.webp.image_url}
-          alt=""
+          alt={images?.jpg.image_url}
         />
         <div className="ml-10 text-white text-xs sm:text-sm lg:text-lg">
-          <span className="font-kenia text-yellow-200 text-sm sm:text-lg lg:text-2xl">
+          <span className="font-semibold text-yellow-200 text-sm sm:text-lg lg:text-2xl">
             {name}
           </span>
-          <span className="font-kenia text-yellow-200 text-sm sm:text-lg lg:text-2xl">
-            {" "}
+          <span className="font-semibold text-yellow-200 text-sm sm:text-lg lg:text-2xl">
+            {" ( "}
             {name_kanji}
+            {" ) "}
           </span>
           <h3 style={style} className="">
             {showMore ? about : about?.substring(0, 250) + "..."}
@@ -95,6 +90,7 @@ const Characters = () => {
               <img
                 className="rounded-t-md w-full h-24 sm:h-44 lg:h-72"
                 src={images?.jpg.image_url}
+                alt={name}
               />
               <h4 className="text-center">{name}</h4>
               <p className="text-center text-yellow-200">{language}</p>
