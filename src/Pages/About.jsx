@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/logo.svg";
 
 const About = () => {
   return (
@@ -6,7 +7,7 @@ const About = () => {
       <div className="flex justify-center items-center bg-gradient-to-r from-gray-400 to-red-700 min-h-screen">
         <img
           className="flex justify-center items-center h-48"
-          src="/src/assets/logo.png"
+          src={logo}
         />
       </div>
     </>
