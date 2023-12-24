@@ -60,8 +60,8 @@ const Navbar = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search anime..."
-              className="cursor-pointer my-1 bg-gray-200 relative z-10 h-7 pl-3 pr-3 rounded-lg border bg-transparent 
-              outline-none border-transparent w-full focus:cursor-text focus:bg-white"
+              className="cursor-pointer my-1 bg-white relative z-10 h-7 pl-3 pr-3 rounded-lg border bg-transparent 
+              outline-none border-transparent w-full focus:cursor-text"
             />
           </form>
         </div>
@@ -99,8 +99,8 @@ const Navbar = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search anime..."
-            className="cursor-pointer bg-gray-200 relative z-10 h-6 pl-2 pr-2 rounded-md border bg-transparent 
-              outline-none border-transparent w-full focus:cursor-text focus:bg-white"
+            className="cursor-pointer bg-white relative z-10 h-6 pl-2 pr-2 rounded-md border bg-transparent 
+              outline-none border-transparent w-full focus:cursor-text"
           />
         </form>
       </div>
