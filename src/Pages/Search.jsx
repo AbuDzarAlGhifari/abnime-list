@@ -1,31 +1,41 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { searchAnime } from "../components/api";
+import Card from "../components/Card";
 
 const Search = () => {
   const location = useLocation();
-  const searchResults = location.state.searchResults || [];
+  const navigate = useNavigate();
+  const searchQuery = new URLSearchParams(location.search).get("query");
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (searchQuery) {
+      searchAnime(searchQuery)
+        .then((results) => setSearchResults(results))
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [searchQuery]);
 
   return (
-    <div>
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 bg-gradient-to-r from-red-700 to-gray-400 min-h-screen">
-        {searchResults?.map((anime) => {
-          const { title, images, mal_id } = anime;
-          return (
-            <Link
-              to={`/anime/${mal_id}`}
-              className="cursor-pointer bg-black border rounded-lg m-3 font-kenia text-white hover:text-black hover:bg-gray-400 p-0.5 hover:p-0 transition-all">
-              <div className="justify-center items-center">
-                <img
-                  className="rounded-t-lg w-full h-20 sm:h-40 lg:h-72 "
-                  src={images.jpg.image_url}
-                />
-                <h1 className="cursor-pointer text-center">{title}</h1>
-              </div>
-            </Link>
-          );
+    <div className="justify-center pb-5 text-sm bg-red-700 min-h-screen">
+      <div className="flex font-poppins font-bold mx-2 pt-4 px-4 justify-between text-xs sm:text-sm lg:text-lg text-white">
+        <h1>
+          Search Results for : {searchQuery}
+        </h1>
+        <h1
+          className="cursor-pointer underline italic text-yellow-300 hover:text-blue-500"
+          onClick={() => navigate(-1)}>
+          Back
+        </h1>
+      </div>
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 mx-2 sm:mx-4">
+        {searchResults?.map((i) => {
+          return <Card key={i.mal_id} all={i} />;
         })}
       </div>
     </div>
   );
 };
+
 export default Search;

@@ -34,7 +34,6 @@ const Characters = () => {
       );
       const data = await response.json();
       setVoices(data.data);
-      // console.log(data.data);
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -46,10 +45,10 @@ const Characters = () => {
   }, []);
 
   return (
-    <div className="justify-center py-4 bg-gradient-to-bl from-gray-400 to-red-700 min-h-screen">
-      <div className="flex bg-slate-600 p-4 mx-3 sm:mx-4 lg:mx-6 rounded-lg">
+    <div className="justify-center py-4 bg-red-500 min-h-screen">
+      <div className="flex bg-red-700 p-4 mx-3 sm:mx-4 lg:mx-6 rounded-lg">
         <img
-          className="h-48 sm:h-60 lg:h-96"
+          className="rounded-lg h-48 sm:h-60 lg:h-96"
           src={images?.webp.image_url}
           alt={images?.jpg.image_url}
         />
@@ -75,10 +74,10 @@ const Characters = () => {
         </div>
       </div>
 
-      <h1 className="mx-3 sm:mx-4 lg:mx-6 mt-5 pt-4 px-4 font-kenia text-white text-xs sm:text-sm lg:text-lg bg-slate-600 rounded-t-lg">
+      <h1 className="mx-3 sm:mx-4 lg:mx-6 mt-5 pt-4 px-7 font-poppins text-white text-xs sm:text-sm lg:text-lg bg-red-700 rounded-t-lg">
         Voice Actor - Seiyuu
       </h1>
-      <div className="grid grid-cols-3 gap-5 sm:grid-cols-4 lg:grid-cols-6 mx-3 sm:mx-4 lg:mx-6 p-4  bg-slate-600 text-white text-xs sm:text-sm lg:text-lg rounded-b-lg">
+      <div className="grid grid-cols-3 sm:gap-4 sm:grid-cols-4 lg:grid-cols-6 mx-3 sm:mx-4 lg:mx-6 p-4  bg-red-700 text-white text-xs sm:text-sm lg:text-lg rounded-b-lg">
         {voices?.map((voice_actors, index) => {
           const { language } = voice_actors;
           const { images, name, mal_id } = voice_actors.person;
@@ -86,14 +85,14 @@ const Characters = () => {
             <Link
               to={`/seiyu/${mal_id}`}
               key={index}
-              className="border rounded-md bg-gray-800 p-0.5 hover:p-0 text-white hover:text-black hover:bg-slate-500 transition-all">
+              className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-white hover:text-blue-500 transition-all">
               <img
-                className="rounded-t-md w-full h-24 sm:h-44 lg:h-72"
+                className="rounded-t-md w-full h-28 sm:h-44 lg:h-72"
                 src={images?.jpg.image_url}
                 alt={name}
               />
-              <h4 className="text-center">{name}</h4>
-              <p className="text-center text-yellow-200">{language}</p>
+              <h4 className="text-center bg-red-950 bg-opacity-80 px-1.5 truncate">{name}</h4>
+              <p className="text-center rounded-b-lg pb-1 text-yellow-200 bg-red-950 bg-opacity-80 px-1.5 truncate">{language}</p>
             </Link>
           );
         })}

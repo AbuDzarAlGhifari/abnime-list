@@ -23,9 +23,9 @@ const Upcoming = () => {
   }, [page]);
 
   return (
-    <div className="pt-2 justify-center text-sm bg-gradient-to-bl from-gray-400 to-red-700 min-h-screen">
+    <div className="pt-2 justify-center text-sm bg-red-700 min-h-screen">
       <div className="p-2">
-        <h3 className="text-center font-kenia text-white text-sm sm:text-lg lg:text-2xl">{`UP COMING ANIME #${page}`}</h3>
+        <h3 className="text-center font-poppins font-extrabold text-white text-sm sm:text-lg lg:text-2xl">{`UP COMING ANIME #${page}`}</h3>
       </div>
       <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 mx-2 sm:mx-4">
         {animeUpcoming.data?.map((top) => (

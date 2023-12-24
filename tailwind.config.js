@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      kenia: ['Kenia']
+      kenia: ['Kenia'],
+      poppins :['Poppins', 'sans-serif']
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
 }

@@ -1,49 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import hamburger from "../assets/hamburger.svg";
 import hamburger_active from "../assets/hamburger-active.svg";
 import logo from "../assets/logo1.png";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-
   const [toggleNavbar, setToggleNavbar] = useState(false);
-  const [query, setQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   const navigate = useNavigate();
-  const searchRef = useRef(null);
-
-  const handleSearch = async (event) => {
-    const keyword = searchRef.current.value;
-
-    if (!keyword || keyword.trim() == "") return;
-    if (event.key === "Enter" || event.type === "click") {
-      try {
-        const response = await axios.get(
-          `https://api.jikan.moe/v4/anime?q=${query}`
-        );
-        setSearchResults(response.data.data);
-        navigate(`/search/${query}`, { state: { searchResults } });
-        // console.log(searchResults);
-      } catch (error) {
-        console.error("Error fetching search results:", error);
-      }
-    }
-  };
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <nav className="bg-gradient-to-r from-gray-400 to-red-700">
+    <nav className="bg-gradient-to-r from-red-400 to-red-800">
       <div className="flex container mx-auto px-4 py-2 justify-between items-center lg:px-10">
         {/* ICON */}
-        <div
-          className="order-1 sm:order-2 lg:order-1"
-          onClick={() => navigate("/")}>
-        <img className="cursor-pointer h-9" src={logo} alt="abnime logo"/>
+        <div className="flex cursor-pointer items-center justify-center order-1 sm:order-2 lg:order-1">
+          <img
+            onClick={() => navigate("/")}
+            className="cursor-pointer h-9"
+            src={logo}
+            alt="abnime logo"
+          />
+          <div className=" hidden sm:block">
+            <ul className="flex justify-center items-center gap-1 pl-6 text-white ">
+              <li
+                className="cursor-pointer font-poppins font-extrabold rounded-md text-red-700 hover:text-blue-400 hover:bg-white px-2"
+                onClick={() => navigate("/")}>
+                Home
+              </li>
+              <li
+                className="cursor-pointer font-poppins font-extrabold rounded-md text-red-700 hover:text-blue-400 hover:bg-white px-2"
+                onClick={() => navigate("/seiyu")}>
+                People
+              </li>
+            </ul>
+          </div>
         </div>
         {/* MENU */}
         <div
-          className="order-2 sm:order-1 lg:hidden"
+          className="flex justify-center items-center order-2 md:hidden lg:hidden"
           onClick={() => setToggleNavbar(toggleNavbar ? false : true)}>
           <img
             className="h-10 w-10 cursor-pointer"
@@ -52,47 +47,30 @@ const Navbar = () => {
           />
         </div>
 
-        <div className="hidden lg:block lg:order-2">
-          <ul className="flex items-center gap-1 bg-red-700 border-2 border-gray-400 rounded-full text-white">
-            <li
-              className="cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold"
-              onClick={() => navigate("/")}>
-              Home
-            </li>
-            <li
-              className="cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold"
-              onClick={() => navigate("/seiyu")}>
-              People
-            </li>
-            <li
-              className="cursor-pointer rounded-full hover:text-red-700 hover:bg-gray-400 px-4 hover:font-bold"
-              onClick={() => navigate("/about")}>
-              About
-            </li>
-          </ul>
-        </div>
         {/* SEARCH */}
         <div className="hidden sm:block order-3">
-          <input
-            className="cursor-pointer rounded-l-lg border-gray-400 border-2 pl-2 pr-2 border-transparent"
-            value={query}
-            placeholder="double enter/click"
-            ref={searchRef}
-            onKeyDown={handleSearch}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button
-            className=" border-gray-400 border-y-2 border-r-2 rounded-r-lg text-justify bg-red-700 text-white hover:bg-slate-400 hover:text-black hover:border-black"
-            onClick={(e) => handleSearch(e)}>
-            Search
-          </button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`/search?query=${searchQuery}`);
+            }}
+            className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search anime..."
+              className="cursor-pointer my-1 bg-gray-200 relative z-10 h-7 pl-3 pr-3 rounded-lg border bg-transparent 
+              outline-none border-transparent w-full focus:cursor-text focus:bg-white"
+            />
+          </form>
         </div>
       </div>
       {/* DROP MENU */}
       <div className={`${toggleNavbar ? "block" : "hidden"} lg:hidden`}>
-        <ul className="flex flex-col gap-1 font-kenia text-sm sm:text-lg bg-gradient-to-r from-red-700 to-gray-400">
+        <ul className="flex flex-col gap-1 font-poppins font-extrabold text-red-700 text-xs sm:text-lg bg ">
           <li
-            className="cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4"
+            className="cursor-pointer px-4 hover:text-blue-500 hover:bg-red-900"
             onClick={() =>
               `${navigate("/")}, ${setToggleNavbar(
                 toggleNavbar ? false : true
@@ -101,7 +79,7 @@ const Navbar = () => {
             Home
           </li>
           <li
-            className="cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4"
+            className="cursor-pointer px-4 hover:text-blue-500 hover:bg-red-900"
             onClick={() =>
               `${navigate("/seiyu")}, ${setToggleNavbar(
                 toggleNavbar ? false : true
@@ -109,30 +87,22 @@ const Navbar = () => {
             }>
             People
           </li>
-          <li
-            className="cursor-pointer border-red-700 border-y-2 bg-gray-400 hover:text-white hover:bg-red-700 hover:border-gray-400 px-4"
-            onClick={() =>
-              `${navigate("/about")}, ${setToggleNavbar(
-                toggleNavbar ? false : true
-              )}`
-            }>
-            About
-          </li>
-          <li className="sm:hidden lg:hidden ">
-            <input
-              className="cursor-pointer rounded-l-lg ml-2 mb-2 border-gray-400 border-2 pl-2 pr-2 border-transparent"
-              value={query}
-              ref={searchRef}
-              onKeyDown={handleSearch}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button
-              className=" border-gray-400 border-y-2 border-r-2 rounded-r-lg text-justify bg-red-700 text-white hover:bg-slate-400 hover:text-black hover:border-black"
-              onClick={(e) => handleSearch(e)}>
-              Search
-            </button>
-          </li>
         </ul>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            navigate(`/search?query=${searchQuery}`);
+          }}
+          className="mx-4 pb-2 pt-1">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search anime..."
+            className="cursor-pointer bg-gray-200 relative z-10 h-6 pl-2 pr-2 rounded-md border bg-transparent 
+              outline-none border-transparent w-full focus:cursor-text focus:bg-white"
+          />
+        </form>
       </div>
     </nav>
   );

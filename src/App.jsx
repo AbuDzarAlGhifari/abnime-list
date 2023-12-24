@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
-import About from "./Pages/About";
 import Seiyu from "./Pages/Seiyu";
 import DetailAnime from "./components/DetailAnime";
 import DetailSeiyu from "./components/DetailSeiyu";
@@ -21,11 +20,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/seiyu" element={<Seiyu />} />
-        <Route path="/about" element={<About />} />
         <Route path="/anime/:id" element={<DetailAnime />} />
         <Route path="/seiyu/:id" element={<DetailSeiyu />} />
         <Route path="/character/:id" element={<Characters />}></Route>
-        <Route path="/search/:query" element={<Search />}></Route>
+        <Route path="/search" element={<Search />}></Route>
         <Route path="/top" element={<TopAnime />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/up" element={<UpComing />} />

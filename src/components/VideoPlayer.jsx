@@ -19,7 +19,7 @@ const VideoPlayer = ({ youtubeId }) => {
       <div className="fixed bottom-2 right-2">
         <button
           onClick={handleVideoPlayer}
-          className="underline font-semibold bg-transparent hover:bg-white rounded-sm text-yellow-300 hover:text-blue-600 float-right">
+          className="underline font-poppins italic font-semibold bg-transparen bg-red-900 rounded-t-md px-2 bg-opacity-50 hover:bg-white hover:bg-opacity-40  text-yellow-300 hover:text-blue-600 float-right">
           Close
         </button>
         <Youtube
@@ -36,7 +36,7 @@ const VideoPlayer = ({ youtubeId }) => {
     return (
       <button
         onClick={handleVideoPlayer}
-        className="rounded fixed bottom-2 px-2 font-semibold right-2 underline  bg-red-500 text-yellow-300 hover:text-blue-600 hover:bg-white text-xs sm:text-sm lg:text-lg transition-all">
+        className="rounded fixed bottom-2 px-2 font-semibold font-poppins italic right-2 underline  bg-red-900 text-yellow-300 hover:text-blue-600 hover:bg-white text-xs sm:text-sm lg:text-lg transition-all">
         Tonton Trailer
       </button>
     );
