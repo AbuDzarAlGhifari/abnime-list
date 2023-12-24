@@ -12,6 +12,7 @@ import TopAnime from "./Pages/TopAnime";
 import Popular from "./Pages/Popular";
 import UpComing from "./Pages/UpComing";
 import SeiyuAll from "./Pages/SeiyuAll";
+import PageNotFound from "./Pages/PageNotFound";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/popular" element={<Popular />} />
         <Route path="/up" element={<UpComing />} />
         <Route path="/seiyuall" element={<SeiyuAll />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
