@@ -1,18 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import React from 'react';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import AnimePage from './pages/anime/AnimePage';
-import SeiyuPage from './pages/people/SeiyuPage';
-import DetailAnimePage from './pages/anime/DetailAnimePage';
-import DetailSeiyuPage from './pages/people/DetailSeiyuPage';
-import CharacterPage from './pages/anime/CharacterPage';
-import Search from './pages/SearchPage';
-import TopAnimePage from './pages/anime/TopAnimePage';
-import PopularAnimePage from './pages/anime/PopularAnimePage';
-import ComingAnimePage from './pages/anime/ComingAnimePage';
-import SeiyuAll from './pages/people/SeiyuAll';
-import PageNotFound from './pages/PageNotFound';
+import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar';
+import PageNotFound from '@/pages/PageNotFound';
+import Search from '@/pages/SearchPage';
+import AnimePage from '@/pages/anime/AnimePage';
+import CharacterPage from '@/pages/anime/CharacterPage';
+import ComingAnimePage from '@/pages/anime/ComingAnimePage';
+import DetailAnimePage from '@/pages/anime/DetailAnimePage';
+import PopularAnimePage from '@/pages/anime/PopularAnimePage';
+import TopAnimePage from '@/pages/anime/TopAnimePage';
+import DetailPeoplePage from '@/pages/people/DetailPeoplePage';
+import PeopleAllPage from '@/pages/people/PeopleAllPage';
+import PeoplePage from '@/pages/people/PeoplePage';
 
 const App = () => {
   return (
@@ -20,15 +19,15 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<AnimePage />} />
-        <Route path="/seiyu" element={<SeiyuPage />} />
+        <Route path="/people" element={<PeoplePage />} />
         <Route path="/anime/:id" element={<DetailAnimePage />} />
-        <Route path="/seiyu/:id" element={<DetailSeiyuPage />} />
+        <Route path="/people/:id" element={<DetailPeoplePage />} />
         <Route path="/character/:id" element={<CharacterPage />}></Route>
         <Route path="/search" element={<Search />}></Route>
         <Route path="/top" element={<TopAnimePage />} />
         <Route path="/popular" element={<PopularAnimePage />} />
         <Route path="/up" element={<ComingAnimePage />} />
-        <Route path="/seiyuall" element={<SeiyuAll />} />
+        <Route path="/peopleall" element={<PeopleAllPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

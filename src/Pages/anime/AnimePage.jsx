@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../components/common/card/Card';
+import {
+  getTopAnime,
+  getAnimeUpcoming,
+  getAnimeSeasonNow,
+} from '@/services/animeService';
+import Card from '@/components/common/card/Card';
 
 const AnimePage = () => {
   const navigate = useNavigate();
@@ -10,43 +14,24 @@ const AnimePage = () => {
   const [animeUpcoming, setAnimeUpcoming] = useState([]);
   const [animeSeasonNow, setAnimeSeasonNow] = useState([]);
 
-  const getTopAnime = async () => {
-    try {
-      const data = await axios.get(
-        'https://api.jikan.moe/v4/top/anime?limit=12'
-      );
-      setAnimeTop(data.data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
-  const getAnimeUpcoming = async () => {
-    try {
-      const data = await axios.get(
-        'https://api.jikan.moe/v4/seasons/upcoming?limit=12'
-      );
-      setAnimeUpcoming(data.data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
-  const getAnimeSeasonNow = async () => {
-    try {
-      const data = await axios.get(
-        'https://api.jikan.moe/v4/seasons/now?limit=12'
-      );
-      setAnimeSeasonNow(data.data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
   useEffect(() => {
-    getTopAnime();
-    getAnimeUpcoming();
-    getAnimeSeasonNow();
+    const fetchData = async () => {
+      try {
+        const [top, upcoming, seasonNow] = await Promise.all([
+          getTopAnime(),
+          getAnimeUpcoming(),
+          getAnimeSeasonNow(),
+        ]);
+
+        setAnimeTop(top);
+        setAnimeUpcoming(upcoming);
+        setAnimeSeasonNow(seasonNow);
+      } catch (error) {
+        console.error('Error fetching anime data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

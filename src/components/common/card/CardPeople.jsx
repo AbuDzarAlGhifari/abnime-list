@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CardSeiyu = ({ all }) => {
+const CardPeople = ({ all }) => {
   return (
     <Link
-      to={`/seiyu/${all.mal_id}`}
+      to={`/people/${all.mal_id}`}
       className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-yellow-300 hover:text-blue-500 transition-all"
     >
       <div className="items-center justify-center">
@@ -21,4 +21,4 @@ const CardSeiyu = ({ all }) => {
   );
 };
 
-export default CardSeiyu;
+export default CardPeople;

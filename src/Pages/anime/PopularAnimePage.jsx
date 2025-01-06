@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Card from '../../components/common/card/Card';
-import Pagination from '../../components/common/Pagination';
+import Card from '@/components/common/card/Card';
+import Pagination from '@/components/common/Pagination';
+import { getAllAnimeTop } from '@/services/animeService';
+import { useEffect, useState } from 'react';
 
 const PopularAnimePage = () => {
   const [page, setPage] = useState(1);
   const [animeTop, setAnimeTop] = useState([]);
 
-  const getTopAnime = async () => {
+  const fetchAnimeTop = async () => {
     try {
-      const data = await axios.get(
-        `https://api.jikan.moe/v4/top/anime?page=${page}`
-      );
-      setAnimeTop(data.data);
+      const data = await getAllAnimeTop(page);
+      setAnimeTop(data);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error('Error fetching anime data:', error);
     }
   };
 
   useEffect(() => {
-    getTopAnime();
+    fetchAnimeTop();
   }, [page]);
 
   return (

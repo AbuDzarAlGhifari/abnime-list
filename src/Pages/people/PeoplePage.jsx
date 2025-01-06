@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import CardPeople from '@/components/common/card/CardPeople';
+import { getTopPeople } from '@/services/peopleService';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CardSeiyu from '../../components/common/card/CardSeiyu';
 
-const SeiyuPage = () => {
+const PeoplePage = () => {
   const navigate = useNavigate();
 
-  const [seiyuTop, setSeiyuTop] = useState([]);
-
-  const getTopPeople = async () => {
-    try {
-      const data = await axios.get(
-        'https://api.jikan.moe/v4/top/people?limit=24'
-      );
-      setSeiyuTop(data.data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
+  const [peopleTop, setPeopleTop] = useState([]);
 
   useEffect(() => {
-    getTopPeople();
+    const fetchData = async () => {
+      try {
+        const [top] = await Promise.all([getTopPeople()]);
+        setPeopleTop(top);
+      } catch (error) {
+        console.error('Error fetching anime data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -29,18 +27,18 @@ const SeiyuPage = () => {
         <h1>Top Famous People In Anime</h1>
         <h1
           className="italic text-yellow-300 underline cursor-pointer hover:text-blue-400"
-          onClick={() => navigate('/seiyuall')}
+          onClick={() => navigate('/peopleall')}
         >
           other...
         </h1>
       </div>
       <div className="grid grid-cols-3 mx-4 bg-red-700 rounded-b-lg sm:grid-cols-4 lg:grid-cols-6">
-        {seiyuTop?.map((top) => (
-          <CardSeiyu all={top} />
+        {peopleTop?.map((top) => (
+          <CardPeople all={top} />
         ))}
       </div>
     </div>
   );
 };
 
-export default SeiyuPage;
+export default PeoplePage;

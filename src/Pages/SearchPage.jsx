@@ -1,7 +1,7 @@
+import Card from '@/components/common/card/Card';
+import { searchAnime } from '@/services/searchService';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { searchAnime } from '../services/api';
-import Card from '../components/common/card/Card';
 
 const Search = () => {
   const location = useLocation();

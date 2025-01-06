@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
+import VideoPlayer from '@/components/common/VideoPlayer';
+import { getAnimeChar, getAnimeDetail } from '@/services/animeService';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import VideoPlayer from '../../components/common/VideoPlayer';
 
 const DetailAnimePage = () => {
   const { id } = useParams();
 
-  const style = {
-    whiteSpace: 'pre-line',
-  };
-
-  const [anime, setAnime] = React.useState({});
-  const [characters, setCharacters] = React.useState([]);
-  const [showMore, setShowMore] = React.useState(false);
+  const [anime, setAnime] = useState({});
+  const [characters, setCharacters] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
   const {
     title,
@@ -28,33 +25,25 @@ const DetailAnimePage = () => {
     trailer,
   } = anime;
 
-  const getAnime = async (anime) => {
-    try {
-      const response = await fetch(`https://api.jikan.moe/v4/anime/${anime}`);
-      const data = await response.json();
-      setAnime(data.data);
-      console.log(data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
-  const getCharacters = async (anime) => {
-    try {
-      const response = await fetch(
-        `https://api.jikan.moe/v4/anime/${anime}/characters`
-      );
-      const data = await response.json();
-      setCharacters(data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
   useEffect(() => {
-    getAnime(id);
-    getCharacters(id);
-  }, []);
+    const fetchAnimeData = async () => {
+      try {
+        const animeData = await getAnimeDetail(id);
+        setAnime(animeData);
+
+        const charactersData = await getAnimeChar(id);
+        setCharacters(charactersData);
+      } catch (error) {
+        console.error('Error fetching anime details or characters:', error);
+      }
+    };
+
+    fetchAnimeData();
+  }, [id]);
+
+  const style = {
+    whiteSpace: 'pre-line',
+  };
 
   return (
     <div className="justify-center min-h-screen py-4 bg-red-500">
@@ -94,13 +83,11 @@ const DetailAnimePage = () => {
       </div>
       <div className="px-2 pb-2 mx-3 text-xs text-white bg-red-700 sm:mx-4 lg:px-6 lg:pb-6 sm:text-sm lg:text-lg rounded-b-md ">
         <h3 className="font-semibold pt-1 pb-0.5">Sinopsis</h3>
-        <h3 style={style} className="">
+        <h3 style={style}>
           {showMore ? synopsis : synopsis?.substring(0, 160) + '...'}
           <button
             className="font-semibold text-yellow-300 underline hover:text-blue-400"
-            onClick={() => {
-              setShowMore(!showMore);
-            }}
+            onClick={() => setShowMore(!showMore)}
           >
             {showMore ? 'Show Less' : 'Read More'}
           </button>

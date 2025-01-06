@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Footer = () => {
-  // const copyright = String.fromCodePoint(0x00a9);
-
   return (
     <div>
       <div className="items-center justify-center bg-gradient-to-r from-red-400 to-red-800">

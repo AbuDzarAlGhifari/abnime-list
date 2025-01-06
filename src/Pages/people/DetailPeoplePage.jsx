@@ -1,46 +1,33 @@
-import React, { useEffect } from 'react';
+import { getPeopleChar, getPeopleDetail } from '@/services/peopleService';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-function DetailSeiyuPage() {
+function DetailPeoplePage() {
   const { id } = useParams();
 
-  const [seiyu, setSeiyu] = React.useState({});
-  const [characters, setCharacters] = React.useState([]);
-  const [showMore, setShowMore] = React.useState(false);
+  const [data, setData] = useState({ people: {}, characters: [] });
+  const { people, characters } = data;
+  const [showMore, setShowMore] = useState(false);
 
-  const { about, name, images } = seiyu;
+  const { about, name, images } = people;
 
   const style = {
     whiteSpace: 'pre-line',
   };
 
-  const getSeiyu = async (seiyu) => {
+  const fetchPeopleData = async () => {
     try {
-      const response = await fetch(`https://api.jikan.moe/v4/people/${seiyu}`);
-      const data = await response.json();
-      setSeiyu(data.data);
-      // console.log(data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
-  const getCharacters = async (seiyu) => {
-    try {
-      const response = await fetch(
-        `https://api.jikan.moe/v4/people/${seiyu}/voices`
-      );
-      const data = await response.json();
-      setCharacters(data);
+      const peopleData = await getPeopleDetail(id);
+      const charactersData = await getPeopleChar(id);
+      setData({ people: peopleData, characters: charactersData.data });
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
   };
 
   useEffect(() => {
-    getSeiyu(id);
-    getCharacters(id);
-  }, []);
+    fetchPeopleData();
+  }, [id]);
 
   return (
     <div className="justify-center min-h-screen py-4 bg-red-500">
@@ -69,10 +56,10 @@ function DetailSeiyuPage() {
       </div>
 
       <h1 className="px-4 pt-4 mx-3 mt-5 text-xs font-bold text-white bg-red-700 rounded-t-lg font-poppins sm:text-sm lg:text-lg">
-        Caracter - anime
+        Character - anime
       </h1>
-      <div className="grid grid-cols-1 gap-5 p-4 mx-3 text-xs text-white bg-red-700 rounded-b-lg sm:grid-cols-2 lg:grid-cols-3 sm:text-sm lg:text-lg">
-        {characters.data?.map((char, index) => {
+      <div className="grid grid-cols-1 gap-5 p-4 mx-3 text-xs text-white bg-red-700 rounded-b-lg sm:grid-cols-2 lg:grid-cols-3 sm:mx-4 lg:mx-6 sm:text-sm lg:text-lg">
+        {characters?.map((char, index) => {
           const { images, name, mal_id } = char.character;
           const { title } = char.anime;
           const { role } = char;
@@ -83,13 +70,13 @@ function DetailSeiyuPage() {
               className="flex rounded-md bg-red-950 p-0.5 hover:p-0 font-semibold text-white hover:text-black hover:bg-slate-500 transition-all"
             >
               <img
-                className="rounded-md "
+                className="rounded-md"
                 src={images?.jpg.image_url}
                 alt={name}
               />
               <div className="pl-2">
-                <h1 className="">{name}</h1>
-                <h1 className="pr-1 text-red-400 trun">{title}</h1>
+                <h1>{name}</h1>
+                <h1 className="pr-1 text-red-400 truncate">{title}</h1>
                 <h1 className="text-yellow-200">{role}</h1>
               </div>
             </Link>
@@ -100,4 +87,4 @@ function DetailSeiyuPage() {
   );
 }
 
-export default DetailSeiyuPage;
+export default DetailPeoplePage;

@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Pagination from '../../components/common/Pagination';
-import Card from '../../components/common/card/Card';
+import { getAllAnimeUpcoming } from '@/services/animeService';
+import Pagination from '@/components/common/Pagination';
+import Card from '@/components/common/card/Card';
 
 const ComingAnimePage = () => {
   const [page, setPage] = useState(1);
   const [animeUpcoming, setAnimeUpcoming] = useState([]);
 
-  const getAnimeUpcoming = async () => {
+  const fetchAnimeUpcoming = async () => {
     try {
-      const data = await axios.get(
-        `https://api.jikan.moe/v4/seasons/upcoming?page=${page}`
-      );
-      setAnimeUpcoming(data.data);
+      const data = await getAllAnimeUpcoming(page);
+      setAnimeUpcoming(data);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error('Error fetching anime data:', error);
     }
   };
 
   useEffect(() => {
-    getAnimeUpcoming();
+    fetchAnimeUpcoming();
   }, [page]);
 
   return (
@@ -28,8 +26,8 @@ const ComingAnimePage = () => {
         <h3 className="text-sm font-extrabold text-center text-white font-poppins sm:text-lg lg:text-2xl">{`UP COMING ANIME #${page}`}</h3>
       </div>
       <div className="grid grid-cols-3 mx-2 sm:grid-cols-4 lg:grid-cols-6 sm:mx-4">
-        {animeUpcoming.data?.map((top) => (
-          <Card key={top.mal_id} all={top} />
+        {animeUpcoming.data?.map((anime) => (
+          <Card key={anime.mal_id} all={anime} />
         ))}
       </div>
       <Pagination

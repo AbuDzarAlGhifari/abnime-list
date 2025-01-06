@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Pagination from '../../components/common/Pagination';
-import Card from '../../components/common/card/Card';
+import Pagination from '@/components/common/Pagination';
+import Card from '@/components/common/card/Card';
+import { getAllAnimeSeasonNow } from '@/services/animeService';
+import { useEffect, useState } from 'react';
 
 const TopAnimePage = () => {
   const [page, setPage] = useState(1);
   const [animeSeasonNow, setAnimeSeasonNow] = useState([]);
 
-  const getAnimeSeasonNow = async () => {
+  const fetchAnimeSeasonNow = async () => {
     try {
-      const data = await axios.get(
-        `https://api.jikan.moe/v4/seasons/now?page=${page}`
-      );
-      setAnimeSeasonNow(data.data);
+      const data = await getAllAnimeSeasonNow(page);
+      setAnimeSeasonNow(data);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error('Error fetching anime data:', error);
     }
   };
 
   useEffect(() => {
-    getAnimeSeasonNow();
+    fetchAnimeSeasonNow();
   }, [page]);
 
   return (

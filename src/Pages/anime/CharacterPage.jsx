@@ -1,48 +1,35 @@
-import React, { useEffect } from 'react';
+import { getCharDetail, getCharVoices } from '@/services/animeService';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const CharacterPage = () => {
   const { id } = useParams();
 
-  const style = {
-    whiteSpace: 'pre-line',
-  };
-
-  const [character, setCharacter] = React.useState([]);
-  const [voices, setVoices] = React.useState([]);
-  const [showMore, setShowMore] = React.useState(false);
+  const [character, setCharacter] = useState([]);
+  const [voices, setVoices] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
   const { images, name, name_kanji, about } = character;
 
-  const getCharacter = async (character) => {
-    try {
-      const response = await fetch(
-        `https://api.jikan.moe/v4/characters/${character}`
-      );
-      const data = await response.json();
-      setCharacter(data.data);
-      // console.log(data.data)
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
-  const getVoices = async (character) => {
-    try {
-      const response = await fetch(
-        `https://api.jikan.moe/v4/characters/${character}/voices`
-      );
-      const data = await response.json();
-      setVoices(data.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
   useEffect(() => {
-    getCharacter(id);
-    getVoices(id);
-  }, []);
+    const fetchCharacterData = async () => {
+      try {
+        const characterData = await getCharDetail(id);
+        setCharacter(characterData);
+
+        const voicesData = await getCharVoices(id);
+        setVoices(voicesData);
+      } catch (error) {
+        console.error('Error fetching character details or voices:', error);
+      }
+    };
+
+    fetchCharacterData();
+  }, [id]);
+
+  const style = {
+    whiteSpace: 'pre-line',
+  };
 
   return (
     <div className="justify-center min-h-screen py-4 bg-red-500">
@@ -65,9 +52,7 @@ const CharacterPage = () => {
             {showMore ? about : about?.substring(0, 250) + '...'}
             <button
               className="font-semibold text-yellow-300 underline hover:text-blue-400"
-              onClick={() => {
-                setShowMore(!showMore);
-              }}
+              onClick={() => setShowMore(!showMore)}
             >
               {showMore ? 'Show Less' : 'Read More'}
             </button>
@@ -84,7 +69,7 @@ const CharacterPage = () => {
           const { images, name, mal_id } = voice_actors.person;
           return (
             <Link
-              to={`/seiyu/${mal_id}`}
+              to={`/people/${mal_id}`}
               key={index}
               className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-white hover:text-blue-500 transition-all"
             >

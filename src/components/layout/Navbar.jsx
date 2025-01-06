@@ -1,7 +1,6 @@
+import { hamburger, hamburger_active } from '@/assets/icon';
+import { logo } from '@/assets/img';
 import React, { useState } from 'react';
-import hamburger from '../../assets/hamburger.svg';
-import hamburger_active from '../../assets/hamburger-active.svg';
-import logo from '../../assets/logo1.png';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -31,7 +30,7 @@ const Navbar = () => {
               </li>
               <li
                 className="px-2 font-extrabold text-red-700 rounded-md cursor-pointer font-poppins hover:text-blue-400 hover:bg-white"
-                onClick={() => navigate('/seiyu')}
+                onClick={() => navigate('/people')}
               >
                 People
               </li>
@@ -85,7 +84,7 @@ const Navbar = () => {
           <li
             className="px-4 cursor-pointer hover:text-blue-500 hover:bg-red-900"
             onClick={() =>
-              `${navigate('/seiyu')}, ${setToggleNavbar(
+              `${navigate('/people')}, ${setToggleNavbar(
                 toggleNavbar ? false : true
               )}`
             }
