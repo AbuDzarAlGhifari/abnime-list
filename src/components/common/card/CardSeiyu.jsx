@@ -1,14 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CardSeiyu = ({ all }) => {
   return (
     <Link
       to={`/seiyu/${all.mal_id}`}
-      className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-yellow-300 hover:text-blue-500 transition-all">
-      <div className="justify-center items-center">
+      className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-yellow-300 hover:text-blue-500 transition-all"
+    >
+      <div className="items-center justify-center">
         <img
-          className="rounded-t-lg w-full h-36 sm:h-52 lg:h-72"
+          className="w-full rounded-t-lg h-36 sm:h-52 lg:h-72"
           src={all.images.jpg.image_url}
           alt={all.name}
         />

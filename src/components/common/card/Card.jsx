@@ -1,18 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Card = ({ all, index }) => {
   return (
     <Link
       to={`/anime/${all.mal_id}`}
       className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-white hover:text-blue-500 transition-all"
-      key={index}>
+      key={index}
+    >
       <div className="absolute bg-black bg-opacity-50 text-white text-[10px] sm:text-sm lg:text-lg rounded-lg pr-2">
         ⭐{all.score}
       </div>
-      <div className="justify-center items-center">
+      <div className="items-center justify-center">
         <img
-          className="rounded-t-lg w-full h-36 sm:h-64 lg:h-72"
+          className="w-full rounded-t-lg h-36 sm:h-64 lg:h-72"
           src={all.images.jpg.image_url}
           alt={all.images.webp.image_url}
         />
