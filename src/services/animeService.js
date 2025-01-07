@@ -56,3 +56,9 @@ export const getCharVoices = async (id) => {
   const response = await axiosInstance.get(`/characters/${id}/voices`);
   return response.data.data;
 };
+
+// GET ANIME DETAILS
+export const getAnimeDetails = async (id) => {
+  const response = await axiosInstance.get(`/anime/${id}`);
+  return response.data.data;
+};
