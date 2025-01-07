@@ -7,7 +7,7 @@ import {
   getAnimeSeasonNow,
 } from '@/services/animeService';
 import Card from '@/components/common/card/Card';
-// import HeroSection from './_component/HeroSection';
+import HeroSection from './_component/HeroSection';
 
 const AnimePage = () => {
   // Fetch Top Anime
@@ -52,9 +52,9 @@ const AnimePage = () => {
     return <div>Error loading data</div>;
 
   return (
-    <div className="justify-center min-h-screen py-4 text-sm bg-red-700">
+    <div className="justify-center min-h-screen pb-4 text-sm bg-red-700">
       {/* Hero Section */}
-      {/* <HeroSection /> */}
+      <HeroSection />
 
       {/* Anime Season Now Section */}
       <div className="flex justify-between px-4 pt-4 mx-1 mt-1 text-xs font-semibold text-white bg-red-700 sm:mx-3 sm:mt-2 lg:mt-3 font-poppins rounded-t-md">

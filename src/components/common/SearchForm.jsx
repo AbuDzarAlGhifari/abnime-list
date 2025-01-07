@@ -9,7 +9,7 @@ const SearchForm = ({ searchQuery, setSearchQuery, navigate, isDesktop }) => (
     }}
     className={`${isDesktop ? 'hidden sm:block' : 'w-full px-4 pb-4'}`}
   >
-    <label className="relative block">
+    <label className="relative block text-white">
       <input
         type="text"
         value={searchQuery}

@@ -23,33 +23,21 @@ const HeroSection = () => {
 
   return (
     <div
-      className="relative w-full h-[600px] text-white"
+      className="relative w-full h-[600px] text-white "
       style={{
         backgroundImage: `url(${anime.images.jpg.large_image_url})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'top',
       }}
     >
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-80"></div>
+      <div className="absolute inset-0 bg-black opacity-35"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-85"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center h-full max-w-6xl px-6 mx-auto">
-        {/* Tags */}
-        <div className="flex gap-2 mb-4 text-sm">
-          <span className="px-3 py-1 bg-gray-800 rounded-full">PG</span>
-          <span className="px-3 py-1 bg-gray-800 rounded-full">4K</span>
-          <span className="px-3 py-1 bg-gray-800 rounded-full">DUB</span>
-          <span className="px-3 py-1 bg-gray-800 rounded-full">SUB</span>
-          <span className="px-3 py-1 bg-gray-800 rounded-full">TV</span>
-          <span className="px-3 py-1 bg-gray-800 rounded-full">
-            {anime.episodes} Ep
-          </span>
-          <span className="px-3 py-1 bg-gray-800 rounded-full">24m</span>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-6xl font-extrabold leading-snug">{anime.title}</h1>
+      <div className="relative z-10 flex flex-col justify-center w-1/2 h-full px-6">
+        <h1 className="text-6xl font-semibold leading-snug">{anime.title}</h1>
 
         {/* Synopsis */}
         <p className="mt-4 text-lg text-gray-300 line-clamp-3">
@@ -58,11 +46,8 @@ const HeroSection = () => {
 
         {/* Buttons */}
         <div className="flex gap-4 mt-8">
-          <button className="px-8 py-3 text-lg font-medium text-white transition bg-red-600 rounded-full hover:bg-red-700">
-            Watch Now
-          </button>
           <button className="px-8 py-3 text-lg font-medium text-white transition border border-white rounded-full hover:bg-gray-800">
-            + Add to List
+            Details
           </button>
         </div>
       </div>
