@@ -24,7 +24,7 @@ export const getAllAnimeUpcoming = async (page = 1) => {
 
 // GET SEASONS NOW
 export const getAnimeSeasonNow = async () => {
-  const response = await axiosInstance.get('/seasons/now?limit=12');
+  const response = await axiosInstance.get('/seasons/now?limit=15');
   return response.data.data;
 };
 
