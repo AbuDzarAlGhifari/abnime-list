@@ -8,5 +8,5 @@ export default {
       poppins: ['Poppins', 'sans-serif'],
     },
   },
-  plugins: [require('tailwind-scrollbar'), require('@tailwindcss/line-clamp')],
+  plugins: [require('tailwind-scrollbar')],
 };

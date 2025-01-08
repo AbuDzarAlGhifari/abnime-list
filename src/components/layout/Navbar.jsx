@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-black bg-opacity-95 shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-red-950 bg-opacity-95 shadow-lg' : 'bg-transparent'
       }`}
     >
       <div className="flex items-center justify-between px-4 py-3 sm:px-8">
@@ -86,7 +86,7 @@ const MobileDropdown = ({ menus, toggleNavbar, setToggleNavbar, navigate }) => {
     <AnimatePresence>
       {toggleNavbar && (
         <motion.div
-          className="fixed top-0 left-0 z-40 flex flex-col w-3/4 h-full text-white bg-black bg-opacity-90 sm:hidden"
+          className="fixed top-0 left-0 z-40 flex flex-col w-3/4 h-full text-white bg-red-950 bg-opacity-90 sm:hidden"
           variants={dropdownVariants}
           initial="hidden"
           animate="visible"

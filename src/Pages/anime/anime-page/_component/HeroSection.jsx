@@ -1,56 +1,117 @@
-import { getAnimeDetails } from '@/services/animeService';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import Slider from 'react-slick';
+import { getTopAnime } from '@/services/animeService';
+import { FaLongArrowAltRight } from 'react-icons/fa';
+import { IoMdTime } from 'react-icons/io';
+
+import {
+  SampleNextArrow,
+  SamplePrevArrow,
+} from '@/components/common/SliderCustom';
+import { SkeletonHero } from './Skeleton';
 
 const HeroSection = () => {
-  const [anime, setAnime] = useState(null);
+  const {
+    data: topAnime,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['topAnime'],
+    queryFn: getTopAnime,
+    retry: 2,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  useEffect(() => {
-    const fetchAnimeDetails = async () => {
-      try {
-        const data = await getAnimeDetails(21);
-        setAnime(data);
-      } catch (error) {
-        console.error('Error fetching anime details:', error);
-      }
-    };
+  const [activeSlide, setActiveSlide] = useState(0);
 
-    fetchAnimeDetails();
-  }, []);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    beforeChange: (oldIndex, newIndex) => setActiveSlide(newIndex),
+    appendDots: (dots) => (
+      <div style={{ bottom: '10px' }}>
+        <ul className="flex justify-center gap-2 dots">{dots}</ul>
+      </div>
+    ),
+    customPaging: (i) => (
+      <div
+        className={`w-3 h-3 rounded-full cursor-pointer ${
+          i === activeSlide ? 'bg-red-600' : 'bg-red-900'
+        } hover:bg-red-600`}
+      ></div>
+    ),
+  };
 
-  if (!anime) {
-    return <div className="text-center text-white">Loading...</div>;
+  if (isLoading) {
+    return <SkeletonHero />;
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-red-500">
+        Failed to load top anime: {error.message || 'Unknown error'}
+      </div>
+    );
   }
 
   return (
-    <div
-      className="relative w-full h-[600px] text-white "
-      style={{
-        backgroundImage: `url(${anime.images.jpg.large_image_url})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'top',
-      }}
-    >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-black opacity-35"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-85"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+    <div className="relative w-full h-[400px] md:h-[600px] text-white bg-red-950">
+      <Slider {...settings}>
+        {topAnime.slice(0, 10).map((anime) => (
+          <div
+            key={anime.mal_id}
+            className="relative flex items-center w-full h-[600px] text-white bg-red-950"
+          >
+            {/* Content */}
+            <div className="relative z-10 flex flex-col justify-center w-full h-full px-6 md:w-2/3 md:px-16">
+              <h1 className="text-3xl font-bold md:text-4xl">{anime.title}</h1>
+              <div className="flex flex-wrap items-center gap-2 mt-2 text-gray-300 md:gap-4 md:mt-4">
+                <span>{anime.type || 'Unknown'}</span>
+                <span className="flex items-center gap-1">
+                  <IoMdTime /> {anime.duration || 'Unknown'}
+                </span>
+                <span>{anime.aired?.string || 'Unknown'}</span>
+                <span className="px-2 py-1 text-xs text-white bg-orange-600 rounded md:text-sm">
+                  CC: {anime.rating || 'Unknown'}
+                </span>
+              </div>
+              <p className="mt-2 text-sm md:mt-4 md:text-lg line-clamp-3">
+                {anime.synopsis}
+              </p>
+              <div className="flex flex-wrap items-center gap-2 mt-4 md:gap-4 md:mt-6">
+                <button className="flex items-center gap-2 px-4 py-2 font-semibold text-white border-2 rounded-full md:px-6 md:py-3 hover:text-gray-300 hover:border-gray-300">
+                  More Details <FaLongArrowAltRight />
+                </button>
+              </div>
+            </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center w-1/2 h-full px-6">
-        <h1 className="text-6xl font-semibold leading-snug">{anime.title}</h1>
+            {/* Background */}
+            <div className="absolute top-0 bottom-0 right-0 w-full h-full shadow-lg md:w-2/3 shadow-red-950">
+              <img
+                src={anime.images.webp.large_image_url}
+                alt={anime.title}
+                className="object-cover object-center w-full h-full md:object-top"
+              />
 
-        {/* Synopsis */}
-        <p className="mt-4 text-lg text-gray-300 line-clamp-3">
-          {anime.synopsis}
-        </p>
+              <div className="absolute inset-0 bg-black opacity-20"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-950 via-transparent to-red-950"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-red-950 via-transparent to-transparent opacity-70"></div>
+            </div>
 
-        {/* Buttons */}
-        <div className="flex gap-4 mt-8">
-          <button className="px-8 py-3 text-lg font-medium text-white transition border border-white rounded-full hover:bg-gray-800">
-            Details
-          </button>
-        </div>
-      </div>
+            <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-red-950 via-transparent to-transparent"></div>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };

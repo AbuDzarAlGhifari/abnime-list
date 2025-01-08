@@ -2,7 +2,7 @@ import axiosInstance from '@/lib/axiosInstance';
 
 // GET TOP ANIME
 export const getTopAnime = async () => {
-  const response = await axiosInstance.get('/top/anime?limit=12');
+  const response = await axiosInstance.get('/top/anime?limit=12&filter=airing');
   return response.data.data;
 };
 
@@ -60,5 +60,11 @@ export const getCharVoices = async (id) => {
 // GET ANIME DETAILS
 export const getAnimeDetails = async (id) => {
   const response = await axiosInstance.get(`/anime/${id}`);
+  return response.data.data;
+};
+
+// GET TOP ANIME
+export const getTopAnimeHero = async () => {
+  const response = await axiosInstance.get('/top/anime');
   return response.data.data;
 };
