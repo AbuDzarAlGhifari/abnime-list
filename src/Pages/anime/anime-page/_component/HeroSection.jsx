@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Slider from 'react-slick';
 import { getTopAnime } from '@/services/animeService';
-import { FaLongArrowAltRight } from 'react-icons/fa';
+import {
+  FaCalendar,
+  FaFilm,
+  FaLongArrowAltRight,
+  FaPlayCircle,
+  FaStar,
+} from 'react-icons/fa';
 import { IoMdTime } from 'react-icons/io';
 
 import {
@@ -10,6 +16,11 @@ import {
   SamplePrevArrow,
 } from '@/components/common/SliderCustom';
 import { SkeletonHero } from './Skeleton';
+import {
+  getDurationInMinutes,
+  getFormattedDate,
+  getFormattedRating,
+} from '@/helper';
 
 const HeroSection = () => {
   const {
@@ -39,13 +50,13 @@ const HeroSection = () => {
     prevArrow: <SamplePrevArrow />,
     beforeChange: (oldIndex, newIndex) => setActiveSlide(newIndex),
     appendDots: (dots) => (
-      <div style={{ bottom: '10px' }}>
-        <ul className="flex justify-center gap-2 dots">{dots}</ul>
+      <div style={{ bottom: '30px' }}>
+        <ul className="flex justify-center gap-1 sm:gap-2 dots">{dots}</ul>
       </div>
     ),
     customPaging: (i) => (
       <div
-        className={`w-3 h-3 rounded-full cursor-pointer ${
+        className={`sm:w-4 sm:h-3 h-1 w-2 rounded-full cursor-pointer ${
           i === activeSlide ? 'bg-red-600' : 'bg-red-900'
         } hover:bg-red-600`}
       ></div>
@@ -65,24 +76,36 @@ const HeroSection = () => {
   }
 
   return (
-    <div className="relative w-full h-[400px] md:h-[600px] text-white bg-red-950">
+    <div className="relative w-full h-[400px] sm:h-[600px] text-white bg-red-950">
       <Slider {...settings}>
         {topAnime.slice(0, 10).map((anime) => (
           <div
             key={anime.mal_id}
-            className="relative flex items-center w-full h-[600px] text-white bg-red-950"
+            className="relative flex items-center w-full h-[600px] sm:h-[700px] text-white bg-red-950"
           >
             {/* Content */}
             <div className="relative z-10 flex flex-col justify-center w-full h-full px-6 md:w-2/3 md:px-16">
               <h1 className="text-3xl font-bold md:text-4xl">{anime.title}</h1>
               <div className="flex flex-wrap items-center gap-2 mt-2 text-gray-300 md:gap-4 md:mt-4">
-                <span>{anime.type || 'Unknown'}</span>
                 <span className="flex items-center gap-1">
-                  <IoMdTime /> {anime.duration || 'Unknown'}
+                  <FaPlayCircle /> {anime.type || 'Unknown'}
                 </span>
-                <span>{anime.aired?.string || 'Unknown'}</span>
+                <span className="flex items-center gap-1">
+                  <FaFilm /> Eps {anime.episodes || 'Unknown'}
+                </span>
+                <span className="flex items-center gap-1">
+                  <IoMdTime />
+                  {getDurationInMinutes(anime.duration) || 'Unknown'} min
+                </span>
+                <span className="flex items-center gap-1 text-sm">
+                  <FaCalendar />
+                  {getFormattedDate(anime.aired?.string) || 'Unknown'}
+                </span>
+                <span className="flex items-center gap-1 text-yellow-300">
+                  <FaStar /> {anime.score}
+                </span>
                 <span className="px-2 py-1 text-xs text-white bg-orange-600 rounded md:text-sm">
-                  CC: {anime.rating || 'Unknown'}
+                  {getFormattedRating(anime.rating) || 'Unknown'}
                 </span>
               </div>
               <p className="mt-2 text-sm md:mt-4 md:text-lg line-clamp-3">

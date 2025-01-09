@@ -68,3 +68,21 @@ export const getTopAnimeHero = async () => {
   const response = await axiosInstance.get('/top/anime');
   return response.data.data;
 };
+
+// TOP SECTION
+export const fetchAnimeData = async (tab) => {
+  const response = await axiosInstance.get(`/top/anime?filter=${tab}`);
+  return response.data.data;
+};
+
+// GENRE
+export const getAnimeGenres = async () => {
+  const response = await axiosInstance.get('/genres/anime');
+  return response.data.data;
+};
+
+// RONDOME
+export const getRandomCharacter = async () => {
+  const response = await axiosInstance.get('/random/characters');
+  return response.data.data;
+};

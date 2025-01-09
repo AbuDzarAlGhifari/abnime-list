@@ -38,7 +38,7 @@ const Navbar = () => {
             className="h-8 cursor-pointer sm:h-12"
             onClick={() => navigate('/')}
           />
-          <div className="hidden gap-6 text-white sm:flex">
+          {/* <div className="hidden gap-6 text-white sm:flex">
             {menus.map((menu, index) => (
               <Link
                 key={index}
@@ -48,7 +48,7 @@ const Navbar = () => {
                 {menu.charAt(0).toUpperCase() + menu.slice(1)}
               </Link>
             ))}
-          </div>
+          </div> */}
         </div>
         <div className="hidden sm:block">
           <SearchForm
@@ -92,7 +92,7 @@ const MobileDropdown = ({ menus, toggleNavbar, setToggleNavbar, navigate }) => {
           animate="visible"
           exit="exit"
         >
-          <ul className="flex flex-col gap-4 p-6">
+          {/* <ul className="flex flex-col gap-4 p-6">
             {menus.map((menu, index) => (
               <li key={index} className="text-lg">
                 <Link
@@ -104,7 +104,7 @@ const MobileDropdown = ({ menus, toggleNavbar, setToggleNavbar, navigate }) => {
                 </Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </motion.div>
       )}
     </AnimatePresence>

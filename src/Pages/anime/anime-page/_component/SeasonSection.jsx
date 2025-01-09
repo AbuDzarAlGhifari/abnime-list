@@ -3,10 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { getAnimeSeasonNow } from '@/services/animeService';
-import CardPopular from '@/components/common/card/CardPopular';
 import { motion } from 'framer-motion';
+import { FaLongArrowAltRight } from 'react-icons/fa';
+import CardSeason from '@/components/common/card/CardSeason';
 
-const PopularSection = () => {
+const SeasonSection = () => {
   const {
     data: animeSeasonNow,
     isLoading,
@@ -18,14 +19,17 @@ const PopularSection = () => {
     staleTime: 1000 * 60 * 5,
   });
 
+  const season = animeSeasonNow?.[0]?.season || 'Unknown Season';
+  const year = animeSeasonNow?.[0]?.year || 'Unknown Year';
+
   const sliderSettings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 2,
+    slidesToScroll: 5,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2500,
     arrows: true,
     responsive: [
       {
@@ -55,11 +59,11 @@ const PopularSection = () => {
   if (isLoading) {
     return (
       <div className="text-center text-white">
-        <div className="px-4 mt-4 sm:px-6 lg:px-8 ">
+        <div className="px-4 mt-4 sm:px-6 lg:px-8">
           <Slider {...sliderSettings}>
             {/* Skeleton loader */}
             {[...Array(5)].map((_, index) => (
-              <div key={index} className="animate-pulse ">
+              <div key={index} className="animate-pulse">
                 <div className="h-48 mx-1 mb-4 bg-gray-600 rounded-lg sm:h-64 lg:h-72"></div>
               </div>
             ))}
@@ -71,26 +75,28 @@ const PopularSection = () => {
 
   if (isError) {
     return (
-      <div className="text-center text-red-500">
-        Error loading popular anime
-      </div>
+      <div className="text-center text-red-500">Error loading season anime</div>
     );
   }
 
+  console.log('Anime Season Now: ', animeSeasonNow);
+
   return (
-    <div className="bg-red-950">
+    <div className="mt-32 bg-red-950 sm:mt-0">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="flex justify-between px-4 pt-4 text-xs font-semibold text-white sm:px-6 lg:px-8 font-poppins">
-          <h1 className="text-lg sm:text-xl">Popular Anime</h1>
+        <div className="flex items-center justify-between px-4 pt-4 text-xs font-semibold text-red-50 sm:px-6 lg:px-8 font-poppins">
+          <h1 className="px-2 text-base capitalize border-l-4 border-red-700 sm:text-xl">
+            Airing {`${season} - ${year}`}
+          </h1>
           <Link
             to="/popular"
-            className="italic text-yellow-300 underline cursor-pointer hover:text-blue-400"
+            className="flex items-center justify-center gap-1 px-2 py-1 text-xs italic bg-red-700 rounded-lg cursor-pointer hover:bg-orange-600 sm:text-sm"
           >
-            View More
+            View More <FaLongArrowAltRight />
           </Link>
         </div>
 
@@ -103,7 +109,7 @@ const PopularSection = () => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <CardPopular all={anime} />
+                <CardSeason all={anime} />
               </motion.div>
             ))}
           </Slider>
@@ -113,4 +119,4 @@ const PopularSection = () => {
   );
 };
 
-export default PopularSection;
+export default SeasonSection;

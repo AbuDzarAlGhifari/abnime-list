@@ -21,3 +21,37 @@ export const SkeletonHero = () => {
     </div>
   );
 };
+
+export const SkeletonTop = () => {
+  return (
+    <div className="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-2 md:grid-cols-3">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div
+          key={index}
+          className="flex overflow-hidden transition-all duration-500 bg-gray-800 rounded-md h-44"
+        >
+          <div className="flex-shrink-0 w-1/3 bg-gray-700 animate-pulse"></div>
+          <div className="flex flex-col justify-between w-2/3 p-4">
+            <div className="w-2/3 h-4 bg-gray-700 animate-pulse"></div>
+            <div className="w-full h-3 mt-2 bg-gray-700 animate-pulse"></div>
+            <div className="w-1/2 h-3 mt-2 bg-gray-700 animate-pulse"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export const SkeletonUpcoming = () => {
+  return (
+    <div className="relative block overflow-hidden transition-transform transform scale-95 bg-gray-700 rounded-lg shadow-lg animate-pulse">
+      {/* Skeleton Image */}
+      <div className="w-full bg-gray-600 rounded-t-lg h-36 sm:h-64 lg:h-72"></div>
+
+      {/* Skeleton Text */}
+      <div className="p-3 text-center bg-gray-600 rounded-b-lg">
+        <div className="w-3/4 h-4 mx-auto bg-gray-500 rounded"></div>
+      </div>
+    </div>
+  );
+};

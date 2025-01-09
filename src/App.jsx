@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import PageNotFound from '@/pages/PageNotFound';
 import Search from '@/pages/SearchPage';
 import AnimePage from '@/pages/anime/anime-page/AnimePage';
 import CharacterPage from '@/pages/anime/CharacterPage';
@@ -12,10 +11,11 @@ import TopAnimePage from '@/pages/anime/TopAnimePage';
 import DetailPeoplePage from '@/pages/people/DetailPeoplePage';
 import PeopleAllPage from '@/pages/people/PeopleAllPage';
 import PeoplePage from '@/pages/people/PeoplePage';
+import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
   return (
-    <div className="bg-red-700">
+    <div className="bg-red-950">
       <Router>
         <Navbar />
         <Routes>
