@@ -3,7 +3,7 @@ import { searchAnime } from '@/services/searchService';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const Search = () => {
+const SearchPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchQuery = new URLSearchParams(location.search).get('query');
@@ -37,4 +37,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchPage;
