@@ -47,12 +47,10 @@ const Footer = () => {
           </a>
         </div>
 
-        {/* Copyright Section */}
         <p className="mt-4 text-sm text-red-700 md:mt-0">
-          &copy; {new Date().getFullYear()} AbNews. All Rights Reserved.
+          {new Date().getFullYear()} AbNime. All Rights Reserved.
         </p>
 
-        {/* Social Media Icons Section */}
         <div className="flex gap-4 mt-4 text-red-700 md:mt-0">
           <a href="#" className="hover:text-blue-600">
             <FaFacebookF size={18} />

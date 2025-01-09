@@ -1,129 +1,114 @@
-import VideoPlayer from '@/components/common/VideoPlayer';
-import { getAnimeChar, getAnimeDetail } from '@/services/animeService';
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getAnimeDetail } from '@/services/animeService';
+import { FaCalendar, FaFilm, FaPlayCircle, FaStar } from 'react-icons/fa';
+import { IoMdTime } from 'react-icons/io';
+import {
+  getDurationInMinutes,
+  getFormattedDate,
+  getFormattedRating,
+} from '@/helper';
+
+const Loading = () => (
+  <div className="flex items-center justify-center min-h-screen text-white">
+    Loading...
+  </div>
+);
+
+const ErrorMessage = ({ message }) => (
+  <div className="flex items-center justify-center min-h-screen text-red-500">
+    {message || 'Failed to fetch anime details.'}
+  </div>
+);
 
 const DetailAnimePage = () => {
   const { id } = useParams();
-
-  const [anime, setAnime] = useState({});
-  const [characters, setCharacters] = useState([]);
-  const [showMore, setShowMore] = useState(false);
-
   const {
-    title,
-    images,
-    episodes,
-    status,
-    aired,
-    source,
-    score,
-    rating,
-    rank,
-    popularity,
-    synopsis,
-    trailer,
-  } = anime;
+    data: anime,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['animeDetail', id],
+    queryFn: () => getAnimeDetail(id),
+  });
 
-  useEffect(() => {
-    const fetchAnimeData = async () => {
-      try {
-        const animeData = await getAnimeDetail(id);
-        setAnime(animeData);
-
-        const charactersData = await getAnimeChar(id);
-        setCharacters(charactersData);
-      } catch (error) {
-        console.error('Error fetching anime details or characters:', error);
-      }
-    };
-
-    fetchAnimeData();
-  }, [id]);
-
-  const style = {
-    whiteSpace: 'pre-line',
-  };
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage message={error?.message} />;
 
   return (
-    <div className="justify-center min-h-screen py-4 bg-red-500">
-      <div className="flex p-2 mx-3 bg-red-700 sm:mx-4 lg:p-6 rounded-t-md">
-        <img
-          className="h-40 rounded-lg sm:h-60 lg:h-96"
-          src={images?.jpg.large_image_url}
-          alt={images?.webp.large_image_url}
-        />
-        <div className="ml-4 text-xs text-white sm:text-sm lg:text-lg">
-          <h1 className="text-sm text-yellow-200 font-poppins sm:text-lg lg:text-2xl">
-            {title}
-          </h1>
-          <div className="flex gap-2 sm:gap-6 lg:gap-8">
-            <div className="font-semibold">
-              <h3>Score</h3>
-              <h3>Rank</h3>
-              <h3>Popular</h3>
-              <h3>Eps</h3>
-              <h3>Status</h3>
-              <h3>Aired</h3>
-              <h3>Source</h3>
-              <h3>Raiting</h3>
+    <div className="text-white">
+      {/* Header Section */}
+      <div className="relative w-full h-[400px] sm:h-[600px] bg-red-950">
+        <div className="absolute inset-0">
+          <img
+            src={anime.images.webp.large_image_url}
+            alt={anime.title}
+            className="object-cover object-center w-full h-full md:object-top"
+          />
+        </div>
+        <div className="absolute inset-0 bg-red-950 opacity-40 backdrop-blur-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-950 via-transparent to-red-950 opacity-70"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-red-950 via-transparent to-transparent opacity-70"></div>
+        <div className="absolute flex p-2 pt-28 sm:flex-row">
+          <img
+            src={anime.images.webp.large_image_url}
+            alt={anime.title}
+            className="relative z-10 w-24 mx-4 rounded-xl sm:mx-6 sm:w-32 md:mx-8 md:w-36 lg:mx-10 lg:w-64"
+          />
+          <div>
+            <h1 className="text-3xl font-extrabold font-poppins">
+              {anime.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-2 mt-2 text-gray-300 md:gap-4 md:mt-4">
+              <span className="flex items-center gap-1">
+                <FaPlayCircle /> {anime.type || 'Unknown'}
+              </span>
+              <span className="flex items-center gap-1">
+                <FaFilm /> Eps {anime.episodes || 'Unknown'}
+              </span>
+              <span className="flex items-center gap-1">
+                <IoMdTime />
+                {getDurationInMinutes(anime.duration) || 'Unknown'} min
+              </span>
+              <span className="flex items-center gap-1 text-sm">
+                <FaCalendar />
+                {getFormattedDate(anime.aired?.string) || 'Unknown'}
+              </span>
+              <span className="flex items-center gap-1 text-yellow-300">
+                <FaStar /> {anime.score}
+              </span>
+              <span className="px-2 py-1 text-xs text-white bg-orange-600 rounded md:text-sm">
+                {getFormattedRating(anime.rating) || 'Unknown'}
+              </span>
             </div>
-            <div>
-              <h3>⭐ {score}</h3>
-              <h3>#{rank}</h3>
-              <h3>#{popularity}</h3>
-              <h3>{episodes}</h3>
-              <h3>{status}</h3>
-              <h3>{aired?.string}</h3>
-              <h3>{source}</h3>
-              <h3>{rating}</h3>
-            </div>
+            <p className="my-2 text-sm text-justify mr-14 md:my-4 md:text-lg">
+              {anime.synopsis}
+            </p>
+            {anime.trailer?.url && (
+              <Link
+                to={anime.trailer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 font-semibold text-white scale-95 border-2 border-red-700 rounded-md hover:scale-105 hover:border-red-500 hover:bg-red-300"
+              >
+                Watch Trailer
+              </Link>
+            )}
           </div>
         </div>
-      </div>
-      <div className="px-2 pb-2 mx-3 text-xs text-white bg-red-700 sm:mx-4 lg:px-6 lg:pb-6 sm:text-sm lg:text-lg rounded-b-md ">
-        <h3 className="font-semibold pt-1 pb-0.5">Sinopsis</h3>
-        <h3 style={style}>
-          {showMore ? synopsis : synopsis?.substring(0, 160) + '...'}
-          <button
-            className="font-semibold text-yellow-300 underline hover:text-blue-400"
-            onClick={() => setShowMore(!showMore)}
-          >
-            {showMore ? 'Show Less' : 'Read More'}
-          </button>
-        </h3>
+        <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-red-950 via-transparent to-transparent"></div>
       </div>
 
-      <h1 className="px-5 pt-4 mx-3 mt-5 text-xs font-bold text-white bg-red-700 rounded-t-lg sm:mx-4 font-poppins sm:text-sm lg:text-lg">
-        Characters
-      </h1>
-
-      <div className="grid grid-cols-3 gap-5 p-4 mx-3 text-xs text-white bg-red-700 rounded-b-lg sm:mx-4 sm:grid-cols-4 lg:grid-cols-6 sm:text-sm lg:text-lg">
-        {characters?.map((character, index) => {
-          const { role } = character;
-          const { images, name, mal_id } = character.character;
-          return (
-            <Link
-              to={`/character/${mal_id}`}
-              key={index}
-              className="cursor-pointer font-poppins font-bold rounded-lg text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-white hover:text-blue-500 transition-all"
-            >
-              <img
-                className="rounded-t-md"
-                src={images?.jpg.image_url}
-                alt={images?.webp.image_url}
-              />
-              <h4 className="text-center bg-red-950 bg-opacity-80 px-1.5 truncate">
-                {name}
-              </h4>
-              <p className="text-center pb-1 rounded-b-lg text-yellow-200 bg-red-950 bg-opacity-80 px-1.5 truncate">
-                {role}
-              </p>
-            </Link>
-          );
-        })}
+      <div className="flex items-center justify-between px-4 pt-4 text-xs font-semibold text-red-50 sm:px-6 lg:px-8 font-poppins">
+        <h2 className="px-2 text-base capitalize border-l-4 border-red-700 sm:text-xl">
+          Characters
+        </h2>
       </div>
-      <VideoPlayer youtubeId={trailer?.youtube_id} />
+      <div className="px-4 py-2 sm:px-6 lg:px-8">
+        <p className="text-sm text-gray-300">Character coming soon...</p>
+      </div>
     </div>
   );
 };
