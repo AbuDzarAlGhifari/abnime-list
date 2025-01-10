@@ -18,7 +18,7 @@ const SearchPage = () => {
   }, [searchQuery]);
 
   return (
-    <div className="justify-center min-h-screen pb-5 text-sm bg-red-700">
+    <div className="justify-center min-h-screen pt-16 pb-5 text-sm bg-red-950">
       <div className="flex justify-between px-4 pt-4 mx-2 text-xs font-bold text-white font-poppins sm:text-sm lg:text-lg">
         <h1>Search Results for : {searchQuery}</h1>
         <h1

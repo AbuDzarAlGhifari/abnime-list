@@ -51,6 +51,19 @@ const Footer = () => {
           {new Date().getFullYear()} AbNime. All Rights Reserved.
         </p>
 
+        <p className="text-sm text-red-700">
+          Anime data provided by{' '}
+          <a
+            href="https://jikan.moe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-yellow-400"
+          >
+            Jikan API
+          </a>
+          .
+        </p>
+
         <div className="flex gap-4 mt-4 text-red-700 md:mt-0">
           <a href="#" className="hover:text-blue-600">
             <FaFacebookF size={18} />

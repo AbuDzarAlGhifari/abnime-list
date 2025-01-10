@@ -4,6 +4,8 @@ import { getAnimeDetail, getAnimeChar } from '@/services/animeService';
 import { useParams } from 'react-router-dom';
 import DetailSection from './_component/DetailSection';
 import CharSection from './_component/CharSection';
+import AdditionalSection from './_component/AdditionalSection';
+import SideGenre from '@/components/layout/SideGenre';
 
 const Loading = () => (
   <div className="flex items-center justify-center min-h-screen text-white">
@@ -20,7 +22,6 @@ const ErrorMessage = ({ message }) => (
 const DetailAnimePage = () => {
   const { id } = useParams();
 
-  // Fetch Anime Detail
   const {
     data: anime,
     isLoading: isAnimeLoading,
@@ -31,7 +32,6 @@ const DetailAnimePage = () => {
     queryFn: () => getAnimeDetail(id),
   });
 
-  // Fetch Characters
   const {
     data: characters,
     isLoading: isCharLoading,
@@ -46,13 +46,14 @@ const DetailAnimePage = () => {
   if (isAnimeError) return <ErrorMessage message={animeError?.message} />;
   if (isCharError)
     return <ErrorMessage message="Failed to fetch characters." />;
+  console.log(JSON.stringify(anime, null, 2));
 
   return (
     <div className="text-white">
-      {/* Anime Detail */}
       <DetailSection anime={anime} />
 
-      {/* Characters */}
+      <AdditionalSection anime={anime} />
+
       {characters?.length > 0 ? (
         <CharSection characters={characters} />
       ) : (
@@ -60,6 +61,9 @@ const DetailAnimePage = () => {
           No characters available for this anime.
         </div>
       )}
+      <div className="mx-3 mt-4 sm:mx-6 sm:mt-0">
+        <SideGenre />
+      </div>
     </div>
   );
 };

@@ -7,11 +7,11 @@ import TopAnimePage from './pages/anime/TopAnimePage';
 import ComingAnimePage from './pages/anime/ComingAnimePage';
 import PopularAnimePage from './pages/anime/PopularAnimePage';
 
-import PeoplePage from './pages/people/PeoplePage';
-import PeopleAllPage from './pages/people/PeopleAllPage';
-import DetailPeoplePage from './pages/people/DetailPeoplePage';
+// import PeoplePage from './pages/people/PeoplePage';
+// import PeopleAllPage from './pages/people/PeopleAllPage';
+// import DetailPeoplePage from './pages/people/DetailPeoplePage';
 
-import CharacterPage from './pages/anime/CharacterPage';
+// import CharacterPage from './pages/anime/CharacterPage';
 import SearchPage from './pages/SearchPage';
 import PageNotFound from './pages/PageNotFound';
 
@@ -27,11 +27,11 @@ const App = () => {
           <Route path="/up" element={<ComingAnimePage />} />
           <Route path="/popular" element={<PopularAnimePage />} />
 
-          <Route path="/people" element={<PeoplePage />} />
-          <Route path="/peopleall" element={<PeopleAllPage />} />
-          <Route path="/people/:id" element={<DetailPeoplePage />} />
+          {/* <Route path="/people" element={<PeoplePage />} /> */}
+          {/* <Route path="/peopleall" element={<PeopleAllPage />} /> */}
+          {/* <Route path="/people/:id" element={<DetailPeoplePage />} /> */}
 
-          <Route path="/character/:id" element={<CharacterPage />} />
+          {/* <Route path="/character/:id" element={<CharacterPage />} /> */}
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

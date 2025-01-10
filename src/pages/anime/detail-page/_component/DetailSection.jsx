@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   FaCalendar,
   FaFilm,
@@ -33,8 +33,8 @@ const DetailSection = ({ anime }) => {
       </div>
       {/* Overlay Gradients */}
       <div className="absolute inset-0 bg-red-950 opacity-40 backdrop-blur-0"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-red-950 via-transparent to-red-950 opacity-70"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-red-950 via-transparent to-transparent opacity-70"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-red-950 via-transparent to-red-950 opacity-55"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-red-950 via-transparent to-transparent opacity-55"></div>
 
       {/* Content Section */}
       <div className="grid grid-cols-12 pt-16 sm:pt-24 sm:mx-24">
@@ -43,7 +43,7 @@ const DetailSection = ({ anime }) => {
           <img
             src={anime.images.webp.large_image_url}
             alt={anime.title}
-            className="z-10 rounded-lg h-36 sm:h-96"
+            className="z-10 rounded-lg shadow h-36 sm:h-96 hover:rotate-3"
           />
         </div>
 
@@ -74,12 +74,13 @@ const DetailSection = ({ anime }) => {
               {getFormattedRating(anime.rating) || 'Unknown'}
             </span>
           </div>
-          <p className="my-4 text-xs text-justify md:my-6 md:text-base">
+
+          <p className="my-4 mr-8 text-xs text-justify md:my-6 md:text-base">
             {anime.synopsis.slice(0, 200)}...
             {anime.synopsis.length > 200 && (
               <button
                 onClick={openModal}
-                className="ml-2 text-red-500 hover:underline"
+                className="ml-2 text-yellow-300 hover:underline"
               >
                 Read More
               </button>
