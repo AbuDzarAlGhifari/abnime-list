@@ -1,12 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/src/assets/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      /* width */
+      ::-webkit-scrollbar {
+        background: rgb(52, 1, 1);
+        width: 6px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: rgb(52, 1, 1);
+        border-radius: 10px;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: rgb(213, 0, 0);
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgb(213, 0, 0), 0 0 10px rgb(213, 0, 0);
+      }
+    </style>
     <title>Abnime</title>
   </head>
-  <body class="scrollbar-thin scrollbar-thumb-red-800 scrollbar-track-red-500">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

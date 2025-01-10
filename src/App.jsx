@@ -1,38 +1,43 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React from "react";
-import Navbar from "./components/Navbar";
-import Home from "./Pages/Home";
-import Seiyu from "./Pages/Seiyu";
-import DetailAnime from "./components/DetailAnime";
-import DetailSeiyu from "./components/DetailSeiyu";
-import Characters from "./components/Characters";
-import Footer from "./components/Footer";
-import Search from "./Pages/Search";
-import TopAnime from "./Pages/TopAnime";
-import Popular from "./Pages/Popular";
-import UpComing from "./Pages/UpComing";
-import SeiyuAll from "./Pages/SeiyuAll";
-import PageNotFound from "./Pages/PageNotFound";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import AnimePage from './pages/anime/anime-page/AnimePage';
+import DetailAnimePage from './pages/anime/detail-page/DetailAnimePage';
+import TopAnimePage from './pages/anime/TopAnimePage';
+import ComingAnimePage from './pages/anime/ComingAnimePage';
+import PopularAnimePage from './pages/anime/PopularAnimePage';
+
+// import PeoplePage from './pages/people/PeoplePage';
+// import PeopleAllPage from './pages/people/PeopleAllPage';
+// import DetailPeoplePage from './pages/people/DetailPeoplePage';
+
+// import CharacterPage from './pages/anime/CharacterPage';
+import SearchPage from './pages/SearchPage';
+import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/seiyu" element={<Seiyu />} />
-        <Route path="/anime/:id" element={<DetailAnime />} />
-        <Route path="/seiyu/:id" element={<DetailSeiyu />} />
-        <Route path="/character/:id" element={<Characters />}></Route>
-        <Route path="/search" element={<Search />}></Route>
-        <Route path="/top" element={<TopAnime />} />
-        <Route path="/popular" element={<Popular />} />
-        <Route path="/up" element={<UpComing />} />
-        <Route path="/seiyuall" element={<SeiyuAll />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <div className="bg-red-950">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<AnimePage />} />
+          <Route path="/detail-anime/:id" element={<DetailAnimePage />} />
+          <Route path="/top" element={<TopAnimePage />} />
+          <Route path="/up" element={<ComingAnimePage />} />
+          <Route path="/popular" element={<PopularAnimePage />} />
+
+          {/* <Route path="/people" element={<PeoplePage />} /> */}
+          {/* <Route path="/peopleall" element={<PeopleAllPage />} /> */}
+          {/* <Route path="/people/:id" element={<DetailPeoplePage />} /> */}
+
+          {/* <Route path="/character/:id" element={<CharacterPage />} /> */}
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
   );
 };
 
