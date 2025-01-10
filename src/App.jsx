@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import AnimePage from './pages/anime/anime-page/AnimePage';
-import DetailAnimePage from './pages/anime/detail-page/DetailAnimePage';
-import TopAnimePage from './pages/anime/TopAnimePage';
-import ComingAnimePage from './pages/anime/ComingAnimePage';
-import PopularAnimePage from './pages/anime/PopularAnimePage';
+import AnimePage from './fix/anime/anime-page/AnimePage';
+import DetailAnimePage from './fix/anime/detail-page/DetailAnimePage';
+import TopAnimePage from './fix/anime/TopAnimePage';
+import ComingAnimePage from './fix/anime/ComingAnimePage';
+import PopularAnimePage from './fix/anime/PopularAnimePage';
 
-import PeoplePage from './pages/people/PeoplePage';
-import PeopleAllPage from './pages/people/PeopleAllPage';
-import DetailPeoplePage from './pages/people/DetailPeoplePage';
+import PeoplePage from './fix/people/PeoplePage';
+import PeopleAllPage from './fix/people/PeopleAllPage';
+import DetailPeoplePage from './fix/people/DetailPeoplePage';
 
-import CharacterPage from './pages/anime/CharacterPage';
-import SearchPage from './pages/SearchPage';
-import PageNotFound from './pages/PageNotFound';
+import CharacterPage from './fix/anime/CharacterPage';
+import SearchPage from './fix/SearchPage';
+import PageNotFound from './fix/PageNotFound';
 
 const App = () => {
   return (
