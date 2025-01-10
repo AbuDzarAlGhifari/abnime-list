@@ -79,8 +79,6 @@ const SeasonSection = () => {
     );
   }
 
-  console.log('Anime Season Now: ', animeSeasonNow);
-
   return (
     <div className="mt-32 bg-red-950 sm:mt-0">
       <motion.div

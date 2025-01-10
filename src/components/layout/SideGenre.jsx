@@ -13,14 +13,13 @@ const SideGenre = () => {
   } = useQuery({
     queryKey: ['animeGenres'],
     queryFn: getAnimeGenres,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 10,
   });
 
   const genresToShow = showAll
     ? genres
     : genres?.slice(0, Math.ceil(genres?.length / 2));
 
-  // Variants untuk animasi skeleton
   const skeletonVariants = {
     initial: { opacity: 1 },
     animate: {
@@ -31,7 +30,7 @@ const SideGenre = () => {
 
   if (isLoading) {
     return (
-      <div className="p-5 bg-red-900 rounded-lg bg-opacity-60">
+      <div className="p-3 mx-5 bg-red-900 rounded-lg sm:p-5 sm:mx-0 bg-opacity-60">
         <h1 className="px-3 py-2 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
           Genre
         </h1>
@@ -53,7 +52,7 @@ const SideGenre = () => {
 
   if (isError) {
     return (
-      <div className="p-5 bg-red-900 rounded-lg bg-opacity-60">
+      <div className="p-3 mx-5 bg-red-900 rounded-lg sm:p-5 sm:mx-0 bg-opacity-60">
         <h1 className="px-3 py-2 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
           Genre
         </h1>
@@ -63,11 +62,11 @@ const SideGenre = () => {
   }
 
   return (
-    <div className="p-5 bg-red-900 rounded-lg bg-opacity-60">
+    <div className="p-3 mx-5 bg-red-900 rounded-lg sm:p-5 sm:mx-0 bg-opacity-60">
       <h1 className="px-3 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
         Genre
       </h1>
-      <div className="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-3 gap-3 mt-4 sm:grid-cols-2 lg:grid-cols-3">
         {genresToShow.map((genre) => (
           <motion.span
             key={genre.mal_id}

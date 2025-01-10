@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchAnimeData } from '@/services/animeService';
+import { getAnimeTopData } from '@/services/animeService';
 import CardTop from '@/components/common/card/CardTop';
 
 const TopSection = () => {
@@ -13,7 +13,7 @@ const TopSection = () => {
     error,
   } = useQuery({
     queryKey: ['animeData', selectedTab],
-    queryFn: () => fetchAnimeData(selectedTab),
+    queryFn: () => getAnimeTopData(selectedTab),
     enabled: !!selectedTab,
   });
 

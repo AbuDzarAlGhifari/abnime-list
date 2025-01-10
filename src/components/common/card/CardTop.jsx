@@ -1,6 +1,5 @@
 import { SkeletonTop } from '@/pages/anime/anime-page/_component/Skeleton';
 import { motion } from 'framer-motion';
-import { FaCalendarAlt } from 'react-icons/fa';
 import { IoStar } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
@@ -15,14 +14,14 @@ const CardTop = ({ animeData, isLoading }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2 lg:grid-cols-3">
       {animeData?.map((anime, index) => {
         const { title, images, mal_id, airing, score, genres, episodes, type } =
           anime;
         const genre = genres?.map((g) => g.name).join(', ') || 'Unknown';
 
         return (
-          <Link to={`/anime/${mal_id}`} key={mal_id}>
+          <Link to={`/detail-anime/${mal_id}`} key={mal_id}>
             <motion.div
               key={mal_id}
               variants={cardVariants}

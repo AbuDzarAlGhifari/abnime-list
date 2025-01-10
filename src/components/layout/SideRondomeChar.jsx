@@ -24,7 +24,7 @@ const SideRondomeChar = () => {
 
   if (isLoading) {
     return (
-      <div className="p-5 bg-red-900 rounded-lg bg-opacity-60">
+      <div className="p-3 mx-5 bg-red-900 rounded-lg sm:p-5 sm:mx-0 bg-opacity-60">
         <h1 className="px-3 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
           Random Chara
         </h1>
@@ -43,7 +43,7 @@ const SideRondomeChar = () => {
 
   if (isError) {
     return (
-      <div className="p-5 bg-red-900 rounded-lg bg-opacity-60">
+      <div className="p-3 mx-5 bg-red-900 rounded-lg sm:p-5 sm:mx-0 bg-opacity-60">
         <h1 className="px-3 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
           Random Chara
         </h1>
@@ -55,7 +55,7 @@ const SideRondomeChar = () => {
   }
 
   return (
-    <div className="p-5 bg-red-900 rounded-lg bg-opacity-60">
+    <div className="p-3 mx-5 bg-red-900 rounded-lg sm:p-5 sm:mx-0 bg-opacity-60">
       <h1 className="px-3 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
         Random Chara
       </h1>

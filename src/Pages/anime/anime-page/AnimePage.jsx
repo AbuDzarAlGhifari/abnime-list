@@ -1,10 +1,10 @@
 import React from 'react';
+import SideGenre from '@/components/layout/SideGenre';
+import SideRondomeChar from '@/components/layout/SideRondomeChar';
 import HeroSection from './_component/HeroSection';
 import SeasonSection from './_component/SeasonSection';
 import TopSection from './_component/TopSection';
 import UpcomingSection from './_component/UpcomingSection';
-import SideGenre from '@/components/layout/SideGenre';
-import SideRondomeChar from '@/components/layout/SideRondomeChar';
 
 const AnimePage = () => {
   return (
@@ -27,7 +27,7 @@ const AnimePage = () => {
         <div className="col-span-full sm:col-span-9">
           <UpcomingSection />
         </div>
-        <div className="space-y-4 col-span-full sm:col-span-3 sm:mr-8">
+        <div className="mt-4 space-y-4 sm:mt-0 col-span-full sm:col-span-3 sm:mr-8">
           <SideGenre />
           <SideRondomeChar />
         </div>

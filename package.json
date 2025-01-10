@@ -21,9 +21,7 @@
     "react-slick": "^0.30.3",
     "react-youtube": "^10.1.0",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.0",
-    "tailwind-scrollbar": "^3.0.5",
-    "use-debounce": "^10.0.0"
+    "tailwind-scrollbar": "^3.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

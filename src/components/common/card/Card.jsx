@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Card = ({ all, index }) => {
   return (
     <Link
-      to={`/anime/${all.mal_id}`}
+      to={`/detail-anime/${all.mal_id}`}
       className="cursor-pointer font-poppins font-bold rounded-lg m-2 text-xs sm:text-sm lg:text-lg p-0.5 hover:p-0 text-white hover:text-blue-500 transition-all"
       key={index}
     >

@@ -10,7 +10,7 @@ const CardSeason = ({ all }) => {
       transition={{ type: 'spring', stiffness: 300, damping: 15 }}
       className="relative mx-1 overflow-hidden font-bold text-white rounded-md cursor-pointer font-poppins group"
     >
-      <Link to={`/anime/${all.mal_id}`}>
+      <Link to={`/detail-anime/${all.mal_id}`}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

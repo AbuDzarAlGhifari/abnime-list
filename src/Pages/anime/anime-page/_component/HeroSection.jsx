@@ -21,6 +21,7 @@ import {
   getFormattedDate,
   getFormattedRating,
 } from '@/helper';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const {
@@ -112,9 +113,13 @@ const HeroSection = () => {
                 {anime.synopsis}
               </p>
               <div className="flex flex-wrap items-center gap-2 mt-4 md:gap-4 md:mt-6">
-                <button className="flex items-center gap-2 px-4 py-2 font-semibold text-white border-2 rounded-full md:px-6 md:py-3 hover:text-gray-300 hover:border-gray-300">
+                <Link
+                  to={`/detail-anime/${anime.mal_id}`}
+                  key={anime.mal_id}
+                  className="flex items-center gap-2 px-4 py-2 font-semibold text-white border-2 rounded-full md:px-6 md:py-3 hover:text-gray-300 hover:border-gray-300"
+                >
                   More Details <FaLongArrowAltRight />
-                </button>
+                </Link>
               </div>
             </div>
 

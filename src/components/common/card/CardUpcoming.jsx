@@ -10,7 +10,7 @@ const CardUpcoming = ({ all, index }) => {
       transition={{ delay: index * 0.1, duration: 0.5 }}
     >
       <Link
-        to={`/anime/${all.mal_id}`}
+        to={`/detail-anime/${all.mal_id}`}
         className="relative block overflow-hidden transition-transform transform scale-95 rounded-lg shadow-lg hover:scale-100 hover:shadow-2xl group"
       >
         <div className="relative">
