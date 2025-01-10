@@ -1,4 +1,4 @@
-import { SkeletonTop } from '@/fix/anime/anime-page/_component/Skeleton';
+import { SkeletonTop } from '@/pages/anime/anime-page/_component/Skeleton';
 import { motion } from 'framer-motion';
 import { IoStar } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
