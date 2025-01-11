@@ -91,7 +91,7 @@ const SeasonSection = () => {
             Airing {`${season} - ${year}`}
           </h1>
           <Link
-            to="/popular"
+            to="/season-now"
             className="flex items-center justify-center gap-1 px-2 py-1 text-xs italic bg-red-700 rounded-lg cursor-pointer hover:bg-orange-600 sm:text-sm"
           >
             View More <FaLongArrowAltRight />

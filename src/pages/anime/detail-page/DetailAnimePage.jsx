@@ -49,7 +49,7 @@ const DetailAnimePage = () => {
   console.log(JSON.stringify(anime, null, 2));
 
   return (
-    <div className="text-white">
+    <div className="overflow-x-hidden text-white">
       <DetailSection anime={anime} />
 
       <AdditionalSection anime={anime} />
@@ -61,7 +61,7 @@ const DetailAnimePage = () => {
           No characters available for this anime.
         </div>
       )}
-      <div className="mx-3 mt-4 sm:mx-6 sm:mt-0">
+      <div className="mt-4 sm:mx-6 sm:mt-0">
         <SideGenre />
       </div>
     </div>
