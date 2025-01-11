@@ -92,7 +92,7 @@ const CharSection = ({ characters }) => {
           })}
         </Slider>
       ) : (
-        <p className="text-sm text-gray-300">No characters found.</p>
+        <p className="text-sm text-red-300">No characters found.</p>
       )}
 
       <ModalCharacter
