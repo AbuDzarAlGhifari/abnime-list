@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link } from 'react-router-dom';
 import { getCharDetail } from '@/services/animeService';
 import { IoClose } from 'react-icons/io5';
 
@@ -32,13 +32,13 @@ const ModalCharacter = ({ selectedCharacter, onClose }) => {
     <AnimatePresence>
       {selectedCharacter && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-0 bg-black/50 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="relative w-full max-w-lg p-6 text-center rounded-lg shadow-xl bg-red-950"
+            className="relative w-full max-w-lg p-4 text-center rounded-lg shadow-xl sm:p-6 bg-red-950"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
@@ -75,7 +75,7 @@ const ModalCharacter = ({ selectedCharacter, onClose }) => {
                 />
                 <Link
                   to={`/character/${characterDetails.mal_id}`}
-                  className="block px-4 py-2 mt-4 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-800"
+                  className="block px-4 py-2 mt-4 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-800"
                 >
                   More About Character
                 </Link>

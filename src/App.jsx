@@ -13,6 +13,7 @@ import DetailPeoplePage from './pages/people/DetailPeoplePage';
 import SearchPage from './pages/SearchPage';
 
 import PageNotFound from './pages/PageNotFound';
+import PageGenre from './pages/PageGenre';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/people/:id" element={<DetailPeoplePage />} />
           <Route path="/character/:id" element={<CharacterPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/genre/:genreId" element={<PageGenre />} />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

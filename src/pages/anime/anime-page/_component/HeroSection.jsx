@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import Slider from 'react-slick';
 import { getTopAnime } from '@/services/animeService';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+
 import {
   FaCalendar,
   FaFilm,
@@ -11,17 +11,19 @@ import {
 } from 'react-icons/fa';
 import { IoMdTime } from 'react-icons/io';
 
+import Slider from 'react-slick';
 import {
   SampleNextArrow,
   SamplePrevArrow,
 } from '@/components/common/SliderCustom';
-import { SkeletonHero } from './Skeleton';
+
 import {
   getDurationInMinutes,
   getFormattedDate,
   getFormattedRating,
 } from '@/helper';
 import { Link } from 'react-router-dom';
+import { SkeletonHero } from './Skeleton';
 
 const HeroSection = () => {
   const {
@@ -64,16 +66,10 @@ const HeroSection = () => {
     ),
   };
 
-  if (isLoading) {
-    return <SkeletonHero />;
-  }
-
+  if (isLoading) return <SkeletonHero />;
   if (isError) {
-    return (
-      <div className="text-center text-red-500">
-        Failed to load top anime: {error.message || 'Unknown error'}
-      </div>
-    );
+    console.log(error.message);
+    return null;
   }
 
   return (
@@ -89,24 +85,24 @@ const HeroSection = () => {
               <h1 className="text-3xl font-bold md:text-4xl">{anime.title}</h1>
               <div className="flex flex-wrap items-center gap-2 mt-2 text-gray-300 md:gap-4 md:mt-4">
                 <span className="flex items-center gap-1">
-                  <FaPlayCircle /> {anime.type || 'Unknown'}
+                  <FaPlayCircle /> {anime.type || '??'}
                 </span>
                 <span className="flex items-center gap-1">
-                  <FaFilm /> Eps {anime.episodes || 'Unknown'}
+                  <FaFilm /> Eps {anime.episodes || '??'}
                 </span>
                 <span className="flex items-center gap-1">
                   <IoMdTime />
-                  {getDurationInMinutes(anime.duration) || 'Unknown'} min
+                  {getDurationInMinutes(anime.duration) || '??'} min
                 </span>
                 <span className="flex items-center gap-1 text-sm">
                   <FaCalendar />
-                  {getFormattedDate(anime.aired?.string) || 'Unknown'}
+                  {getFormattedDate(anime.aired?.string) || '??'}
                 </span>
                 <span className="flex items-center gap-1 text-yellow-300">
                   <FaStar /> {anime.score}
                 </span>
                 <span className="px-2 py-1 text-xs text-white bg-orange-600 rounded md:text-sm">
-                  {getFormattedRating(anime.rating) || 'Unknown'}
+                  {getFormattedRating(anime.rating) || '??'}
                 </span>
               </div>
               <p className="mt-2 text-sm md:mt-4 md:text-lg line-clamp-3">

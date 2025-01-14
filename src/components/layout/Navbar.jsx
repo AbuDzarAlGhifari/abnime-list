@@ -70,12 +70,21 @@ const Navbar = () => {
         toggleNavbar={toggleNavbar}
         setToggleNavbar={setToggleNavbar}
         navigate={navigate}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
     </nav>
   );
 };
 
-const MobileDropdown = ({ menus, toggleNavbar, setToggleNavbar, navigate }) => {
+const MobileDropdown = ({
+  menus,
+  toggleNavbar,
+  setToggleNavbar,
+  navigate,
+  searchQuery,
+  setSearchQuery,
+}) => {
   const dropdownVariants = {
     hidden: { x: '-100%', opacity: 0 },
     visible: { x: '0%', opacity: 1, transition: { duration: 0.3 } },
@@ -105,6 +114,15 @@ const MobileDropdown = ({ menus, toggleNavbar, setToggleNavbar, navigate }) => {
               </li>
             ))}
           </ul> */}
+
+          <div className="flex items-center justify-center pt-4">
+            <SearchForm
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              navigate={navigate}
+              isDesktop
+            />
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

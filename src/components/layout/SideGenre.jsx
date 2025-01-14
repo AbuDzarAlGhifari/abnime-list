@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { getAnimeGenres } from '@/services/animeService';
+import { Link } from 'react-router-dom';
 
 const SideGenre = () => {
   const [showAll, setShowAll] = useState(false);
@@ -13,7 +14,7 @@ const SideGenre = () => {
   } = useQuery({
     queryKey: ['animeGenres'],
     queryFn: getAnimeGenres,
-    staleTime: 1000 * 60 * 10,
+    staleTime: 1000 * 60 * 20,
   });
 
   const genresToShow = showAll
@@ -34,9 +35,8 @@ const SideGenre = () => {
         <h1 className="px-3 py-2 text-lg font-semibold capitalize border-l-4 border-red-700 font-poppins text-red-50 sm:text-xl">
           Genre
         </h1>
-        {/* Skeleton Loading */}
-        <div className="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, index) => (
+        <div className="grid grid-cols-3 gap-3 mt-4 sm:grid-cols-4 lg:grid-cols-5">
+          {Array.from({ length: 12 }).map((_, index) => (
             <motion.div
               key={index}
               className="h-6 bg-red-800 rounded-lg"
@@ -68,15 +68,19 @@ const SideGenre = () => {
       </h1>
       <div className="grid grid-cols-3 gap-3 mt-4 sm:grid-cols-2 lg:grid-cols-3">
         {genresToShow.map((genre) => (
-          <motion.span
+          <Link
+            to={`/genre/${genre.mal_id}`}
             key={genre.mal_id}
             className="relative max-w-full px-3 py-2 text-sm font-medium text-red-100 truncate transition-all bg-red-800 rounded-lg shadow-md cursor-pointer hover:bg-red-700"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title={genre.name}
           >
-            {genre.name}
-          </motion.span>
+            <motion.span
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title={genre.name}
+            >
+              {genre.name}
+            </motion.span>
+          </Link>
         ))}
       </div>
 
