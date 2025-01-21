@@ -46,7 +46,7 @@ const DetailAnimePage = () => {
   if (isAnimeError) return <ErrorMessage message={animeError?.message} />;
   if (isCharError)
     return <ErrorMessage message="Failed to fetch characters." />;
-  console.log(JSON.stringify(anime, null, 2));
+  // console.log(JSON.stringify(anime, null, 2));
 
   return (
     <div className="overflow-x-hidden text-white">

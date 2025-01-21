@@ -5,7 +5,7 @@ const Card = ({ all }) => {
   return (
     <Link
       to={`/detail-anime/${all.mal_id}`}
-      className="relative mx-2 my-4 overflow-hidden transition-transform duration-300 transform rounded-lg shadow-lg group bg-gradient-to-t from-red-800 via-red-950 to-black hover:scale-105" // Added mx-2 and my-4 for spacing
+      className="relative mx-2 my-4 overflow-hidden transition-transform duration-300 transform rounded-lg shadow-lg group bg-gradient-to-t from-red-800 via-red-950 to-black hover:scale-105"
     >
       <div className="absolute px-2 py-1 text-xs text-white bg-black rounded-full shadow-md top-2 left-2 bg-opacity-70 sm:text-sm">
         ⭐ {all.score || 'N/A'}

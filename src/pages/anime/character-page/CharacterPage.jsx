@@ -1,6 +1,8 @@
+import { loading_gif } from '@/assets/img';
+import ScrollTopButton from '@/components/common/ScrollTopButton';
+import { getCharDetail, getCharVoices } from '@/services/animeService';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { getCharDetail, getCharVoices } from '@/services/animeService';
 import CharacterDetails from './_component/CharacterDetails';
 import VoiceActors from './_component/VoiceActors';
 
@@ -33,7 +35,9 @@ const CharacterPage = () => {
   if (isCharacterLoading || isVoicesLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-red-950">
-        <p className="text-lg text-white">Loading...</p>
+        <p className="text-lg text-white">
+          <img className="w-28 sm:w-52" src={loading_gif} alt="Loading..." />
+        </p>
       </div>
     );
   }
@@ -48,16 +52,18 @@ const CharacterPage = () => {
     );
   }
 
+  // console.log(JSON.stringify(voices, null, 2));
+
   return (
-    <div className="min-h-screen py-4 bg-red-950">
-      <div className="container px-4 mx-auto sm:px-6 lg:px-8">
-        <CharacterDetails
-          character={character}
-          showMore={false}
-          setShowMore={() => {}}
-        />
-        <VoiceActors voices={voices} />
+    <div className="min-h-screen bg-red-950 ">
+      <div className="px-4 mx-auto bg-gray-900 sm:px-6 lg:px-8">
+        <CharacterDetails character={character} />
       </div>
+
+      <VoiceActors voices={voices} />
+
+      {/* Top Button */}
+      <ScrollTopButton />
     </div>
   );
 };
