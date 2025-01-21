@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import {
+  getDurationInMinutes,
+  getFormattedDate,
+  getFormattedRating,
+} from '@/helper';
+import { useState } from 'react';
 import {
   FaCalendar,
   FaFilm,
@@ -7,12 +12,8 @@ import {
   FaStar,
 } from 'react-icons/fa';
 import { IoMdTime } from 'react-icons/io';
-import {
-  getDurationInMinutes,
-  getFormattedDate,
-  getFormattedRating,
-} from '@/helper';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ModalSinopsis from './ModalSinopsis';
 
 const DetailSection = ({ anime }) => {
@@ -20,6 +21,16 @@ const DetailSection = ({ anime }) => {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const imageVariant = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
+  };
+
+  const textVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.3 } },
+  };
 
   return (
     <div className="relative w-full h-[400px] sm:h-[600px] bg-red-950">
@@ -39,16 +50,26 @@ const DetailSection = ({ anime }) => {
       {/* Content Section */}
       <div className="flex justify-center gap-3 px-8 pt-20 sm:gap-10 sm:pt-28">
         {/* Anime Thumbnail */}
-        <div className="z-20 ">
+        <motion.div
+          className="z-20"
+          variants={imageVariant}
+          initial="hidden"
+          animate="visible"
+        >
           <img
             src={anime.images.webp.large_image_url}
             alt={anime.title}
             className="z-10 w-40 h-auto rounded-lg shadow sm:w-64 -rotate-6"
           />
-        </div>
+        </motion.div>
 
         {/* Anime Details */}
-        <div className="z-20">
+        <motion.div
+          className="z-20"
+          variants={textVariant}
+          initial="hidden"
+          animate="visible"
+        >
           <h1 className="text-sm font-bold sm:font-extrabold sm:text-3xl font-poppins">
             {anime.title}
           </h1>
@@ -79,12 +100,13 @@ const DetailSection = ({ anime }) => {
           <div className="flex flex-wrap gap-1 sm:gap-2">
             {anime.genres?.length > 0 ? (
               anime.genres.map((genre) => (
-                <span
+                <Link
+                  to={`/genre/${genre.mal_id}`}
                   key={genre.mal_id}
                   className="px-3 py-1 text-xs font-medium text-white bg-red-600 rounded-md cursor-pointer md:text-sm hover:bg-red-700"
                 >
                   {genre.name}
-                </span>
+                </Link>
               ))
             ) : (
               <span className="text-gray-400">No genres available</span>
@@ -108,20 +130,22 @@ const DetailSection = ({ anime }) => {
               to={anime.trailer.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center w-fit bg-orange-700 rounded-md text-xs gap-1.5 px-2 py-1 sm:px-3 sm:py-2 font-bold hover:bg-orange-600"
+              className="flex items-center w-fit bg-red-700 rounded-md text-xs gap-1.5 px-2 py-1 sm:px-3 sm:py-2 font-bold hover:bg-red-800"
             >
               Watch Trailer <FaLongArrowAltRight />
             </Link>
           )}
-        </div>
+        </motion.div>
       </div>
       {/* Bottom Gradient */}
       <div className="absolute bottom-0 w-full h-24 bg-gradient-to-t from-red-950 via-transparent to-transparent"></div>
 
       {/* Modal */}
-      <ModalSinopsis isOpen={isModalOpen} onClose={closeModal}>
-        <p className="text-red-50">{anime.synopsis}</p>
-      </ModalSinopsis>
+      <ModalSinopsis
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        anime={anime.synopsis}
+      />
     </div>
   );
 };

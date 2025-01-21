@@ -46,12 +46,12 @@ const Pagination = ({ page, lastPage, setPage }) => {
   }
 
   return (
-    <div className="inline-flex -space-x-px rounded-lg bg-red-950">
+    <div className="flex flex-wrap items-center justify-center gap-2 p-4 rounded-lg bg-red-950 sm:gap-4">
       {/* Previous Page Button */}
       {page > 1 && (
         <button
           onClick={handlePrevPage}
-          className="inline-flex items-center px-2 py-2 text-sm font-semibold text-white transition-all transform rounded-l-md hover:text-yellow-500 hover:scale-110"
+          className="flex items-center px-2 py-2 text-sm font-semibold text-white transition-all transform rounded-md sm:px-3 sm:py-2 hover:text-yellow-500 hover:scale-110"
         >
           <span className="sr-only">Previous</span>
           <FaChevronLeft />
@@ -59,35 +59,37 @@ const Pagination = ({ page, lastPage, setPage }) => {
       )}
 
       {/* Page Numbers */}
-      {pageNumbers.map((num, index) =>
-        num === '...' ? (
-          <span
-            key={index}
-            className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white"
-          >
-            ...
-          </span>
-        ) : (
-          <button
-            key={index}
-            onClick={() => {
-              setPage(num);
-              scrollTop();
-            }}
-            className={`inline-flex items-center px-4 py-2 text-sm font-semibold text-white hover:text-yellow-500 transition-all transform hover:scale-110 ${
-              num === page ? 'font-bold text-yellow-500' : ''
-            }`}
-          >
-            {num}
-          </button>
-        )
-      )}
+      <div className="flex flex-wrap items-center justify-center gap-1">
+        {pageNumbers.map((num, index) =>
+          num === '...' ? (
+            <span
+              key={index}
+              className="px-2 text-sm font-semibold text-white sm:px-3"
+            >
+              ...
+            </span>
+          ) : (
+            <button
+              key={index}
+              onClick={() => {
+                setPage(num);
+                scrollTop();
+              }}
+              className={`px-2 py-1 text-sm font-semibold text-white rounded-md sm:px-3 sm:py-2 hover:text-yellow-500 transition-all transform hover:scale-110 ${
+                num === page ? 'font-bold text-yellow-500 bg-yellow-600' : ''
+              }`}
+            >
+              {num}
+            </button>
+          )
+        )}
+      </div>
 
       {/* Next Page Button */}
       {page < lastPage && (
         <button
           onClick={handleNextPage}
-          className="inline-flex items-center px-2 py-2 text-sm font-semibold text-white transition-all transform rounded-r-md hover:text-yellow-500 hover:scale-110"
+          className="flex items-center px-2 py-2 text-sm font-semibold text-white transition-all transform rounded-md sm:px-3 sm:py-2 hover:text-yellow-500 hover:scale-110"
         >
           <span className="sr-only">Next</span>
           <FaChevronRight />
@@ -95,17 +97,18 @@ const Pagination = ({ page, lastPage, setPage }) => {
       )}
 
       {/* Go to Page Input */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 mt-2 sm:mt-0">
         <input
           type="text"
           inputMode="numeric"
           value={searchPage}
           onChange={handlePageChange}
-          className="px-3 py-1 text-gray-700 rounded-md w-14 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className="w-16 px-2 py-1 text-center text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 sm:w-20"
+          placeholder="Page"
         />
         <button
           onClick={handleGo}
-          className="px-2 py-1 text-white transition-all transform bg-yellow-500 rounded-md hover:bg-yellow-600 hover:scale-105"
+          className="px-3 py-1 text-white transition-all transform bg-yellow-500 rounded-md hover:bg-yellow-600 hover:scale-105"
         >
           Go
         </button>

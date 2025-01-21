@@ -1,23 +1,13 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getAnimeDetail, getAnimeChar } from '@/services/animeService';
-import { useParams } from 'react-router-dom';
-import DetailSection from './_component/DetailSection';
-import CharSection from './_component/CharSection';
-import AdditionalSection from './_component/AdditionalSection';
+import { ErrorMessage, Loading } from '@/components/common/Status';
 import SideGenre from '@/components/layout/SideGenre';
-
-const Loading = () => (
-  <div className="flex items-center justify-center min-h-screen text-white">
-    Loading...
-  </div>
-);
-
-const ErrorMessage = ({ message }) => (
-  <div className="flex items-center justify-center min-h-screen text-red-500">
-    {message || 'Failed to fetch anime details.'}
-  </div>
-);
+import { getAnimeChar, getAnimeDetail } from '@/services/animeService';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import AdditionalSection from './_component/AdditionalSection';
+import CharSection from './_component/CharSection';
+import DetailSection from './_component/DetailSection';
+import ScrollTopButton from '@/components/common/ScrollTopButton';
 
 const DetailAnimePage = () => {
   const { id } = useParams();
@@ -43,9 +33,8 @@ const DetailAnimePage = () => {
   });
 
   if (isAnimeLoading || isCharLoading) return <Loading />;
-  if (isAnimeError) return <ErrorMessage message={animeError?.message} />;
-  if (isCharError)
-    return <ErrorMessage message="Failed to fetch characters." />;
+  if (isAnimeError) return <ErrorMessage />;
+  if (isCharError) return <ErrorMessage />;
   // console.log(JSON.stringify(anime, null, 2));
 
   return (
@@ -64,6 +53,9 @@ const DetailAnimePage = () => {
       <div className="mt-4 sm:mx-6 sm:mt-0">
         <SideGenre />
       </div>
+
+      {/* Top Button */}
+      <ScrollTopButton />
     </div>
   );
 };

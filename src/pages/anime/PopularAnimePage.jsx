@@ -1,8 +1,10 @@
 import Card from '@/components/common/card/Card';
 import Pagination from '@/components/common/Pagination';
+import ScrollTopButton from '@/components/common/ScrollTopButton';
+import { ErrorMessage, Loading } from '@/components/common/Status';
 import { getAllAnimeTop } from '@/services/animeService';
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const PopularAnimePage = () => {
   const [page, setPage] = useState(1);
@@ -19,8 +21,8 @@ const PopularAnimePage = () => {
     staleTime: 60000,
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading data!</div>;
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage />;
 
   return (
     <div className="justify-center min-h-screen pt-2 text-sm bg-red-700">
@@ -39,6 +41,9 @@ const PopularAnimePage = () => {
           setPage={setPage}
         />
       </div>
+
+      {/* Top Button */}
+      <ScrollTopButton />
     </div>
   );
 };

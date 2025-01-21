@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import Card from '@/components/common/card/Card';
 import Pagination from '@/components/common/Pagination';
+import ScrollTopButton from '@/components/common/ScrollTopButton';
+import { ErrorMessage, Loading } from '@/components/common/Status';
 import { getAnimeByGenre, getAnimeGenres } from '@/services/animeService';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const getGenreNameById = (genres, genreId) => {
   const genre = genres?.find((g) => g.mal_id === parseInt(genreId, 10));
@@ -38,34 +41,48 @@ const PageGenre = () => {
   const genreName = getGenreNameById(genres, genreId);
 
   if (isLoading || isGenresLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-lg text-white">Loading...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (isError || isGenresError) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-lg text-white">
-          Failed to load anime or genre information.
-        </p>
-      </div>
-    );
+    return <ErrorMessage />;
   }
 
   return (
-    <div className="min-h-screen pt-20">
-      <h1 className="px-2 mx-4 text-base font-bold text-white capitalize border-l-4 border-red-700 sm:mx-6 font-poppins sm:text-xl">
+    <motion.div
+      className="justify-center min-h-screen pt-20"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.h1
+        className="px-2 mx-4 text-base font-bold text-white capitalize border-l-4 border-red-700 sm:mx-6 font-poppins sm:text-xl"
+        initial={{ x: -50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         Anime Genre: {genreName}
-      </h1>
+      </motion.h1>
 
-      <div className="grid grid-cols-3 gap-4 p-4 sm:grid-cols-4 lg:grid-cols-6">
+      <motion.div
+        className="grid grid-cols-3 mx-2 sm:grid-cols-4 lg:grid-cols-6 sm:mx-4"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.1,
+            },
+          },
+        }}
+      >
         {animeList.data?.map((anime) => (
           <Card key={anime.mal_id} all={anime} />
         ))}
-      </div>
+      </motion.div>
+
       <div className="flex items-center justify-center">
         <Pagination
           page={page}
@@ -73,7 +90,10 @@ const PageGenre = () => {
           setPage={setPage}
         />
       </div>
-    </div>
+
+      {/* Top Button */}
+      <ScrollTopButton />
+    </motion.div>
   );
 };
 

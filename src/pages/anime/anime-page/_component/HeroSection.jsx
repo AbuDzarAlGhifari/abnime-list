@@ -112,7 +112,7 @@ const HeroSection = () => {
                 <Link
                   to={`/detail-anime/${anime.mal_id}`}
                   key={anime.mal_id}
-                  className="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-white border-2 rounded-2xl sm:px-6 sm:py-3 hover:text-gray-300 hover:border-gray-300"
+                  className="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold text-white border-2 rounded-2xl sm:rounded-3xl sm:px-6 sm:py-3 hover:text-gray-300 hover:border-gray-300"
                 >
                   More Details <FaLongArrowAltRight />
                 </Link>
