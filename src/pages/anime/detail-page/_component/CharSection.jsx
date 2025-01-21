@@ -12,12 +12,14 @@ const CharSection = ({ characters }) => {
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 5,
+    arrows: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 5,
           slidesToScroll: 4,
+          arrows: true,
         },
       },
       {
@@ -25,6 +27,7 @@ const CharSection = ({ characters }) => {
         settings: {
           slidesToShow: 5,
           slidesToScroll: 4,
+          arrows: true,
         },
       },
       {
@@ -32,6 +35,7 @@ const CharSection = ({ characters }) => {
         settings: {
           slidesToShow: 4,
           slidesToScroll: 3,
+          arrows: false,
         },
       },
     ],
@@ -92,7 +96,7 @@ const CharSection = ({ characters }) => {
           })}
         </Slider>
       ) : (
-        <p className="text-sm text-red-300">No characters found.</p>
+        <p className="text-sm text-red-300">No characters found</p>
       )}
 
       <ModalCharacter

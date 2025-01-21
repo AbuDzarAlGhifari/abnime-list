@@ -30,7 +30,7 @@ const CardSeason = ({ all }) => {
               </span>
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black via-black/70 to-transparent">
-              <h1 className="text-sm font-semibold truncate sm:text-base">
+              <h1 className="text-xs font-semibold truncate sm:text-base">
                 {all.title}
               </h1>
             </div>

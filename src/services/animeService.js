@@ -69,6 +69,16 @@ export const getAnimeGenres = async () => {
   return response.data.data;
 };
 
+export const getAnimeByGenre = async (genreId, page = 1) => {
+  const { data } = await axiosInstance.get(`/anime`, {
+    params: {
+      genres: genreId,
+      page,
+    },
+  });
+  return data;
+};
+
 // RONDOME
 export const getRandomCharacter = async () => {
   const response = await axiosInstance.get('/random/characters');

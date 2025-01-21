@@ -1,24 +1,28 @@
 import Card from '@/components/common/card/Card';
 import Pagination from '@/components/common/Pagination';
+import ScrollTopButton from '@/components/common/ScrollTopButton';
+import { ErrorMessage, Loading } from '@/components/common/Status';
 import { getAllAnimeTop } from '@/services/animeService';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const PopularAnimePage = () => {
   const [page, setPage] = useState(1);
-  const [animeTop, setAnimeTop] = useState([]);
 
-  const fetchAnimeTop = async () => {
-    try {
-      const data = await getAllAnimeTop(page);
-      setAnimeTop(data);
-    } catch (error) {
-      console.error('Error fetching anime data:', error);
-    }
-  };
+  const {
+    data: animeTop,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['animeTop', page],
+    queryFn: () => getAllAnimeTop(page),
+    keepPreviousData: true,
+    staleTime: 60000,
+  });
 
-  useEffect(() => {
-    fetchAnimeTop();
-  }, [page]);
+  if (isLoading) return <Loading />;
+  if (isError) return <ErrorMessage />;
 
   return (
     <div className="justify-center min-h-screen pt-2 text-sm bg-red-700">
@@ -30,11 +34,16 @@ const PopularAnimePage = () => {
           <Card key={top.mal_id} all={top} />
         ))}
       </div>
-      <Pagination
-        page={page}
-        lastPage={animeTop.pagination?.last_visible_page}
-        setPage={setPage}
-      />
+      <div className="flex items-center justify-center">
+        <Pagination
+          page={page}
+          lastPage={animeTop.pagination?.last_visible_page}
+          setPage={setPage}
+        />
+      </div>
+
+      {/* Top Button */}
+      <ScrollTopButton />
     </div>
   );
 };

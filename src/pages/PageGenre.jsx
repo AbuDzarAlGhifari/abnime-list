@@ -2,47 +2,55 @@ import Card from '@/components/common/card/Card';
 import Pagination from '@/components/common/Pagination';
 import ScrollTopButton from '@/components/common/ScrollTopButton';
 import { ErrorMessage, Loading } from '@/components/common/Status';
-import { getAllAnimeSeasonNow } from '@/services/animeService';
+import { getAnimeByGenre, getAnimeGenres } from '@/services/animeService';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const getCurrentSeasonAndYear = () => {
-  const month = new Date().getMonth();
-  const year = new Date().getFullYear();
-
-  const season = (() => {
-    if (month < 3) return 'Winter';
-    if (month < 6) return 'Spring';
-    if (month < 9) return 'Summer';
-    return 'Fall';
-  })();
-
-  return { season, year };
+const getGenreNameById = (genres, genreId) => {
+  const genre = genres?.find((g) => g.mal_id === parseInt(genreId, 10));
+  return genre ? genre.name : 'Unknown Genre';
 };
 
-const SeasonAnimePage = () => {
+const PageGenre = () => {
+  const { genreId } = useParams();
   const [page, setPage] = useState(1);
 
-  const { season, year } = getCurrentSeasonAndYear();
-
   const {
-    data: animeSeasonNow,
-    isLoading: loadingSeasonNow,
-    isError: errorSeasonNow,
+    data: genres,
+    isLoading: isGenresLoading,
+    isError: isGenresError,
   } = useQuery({
-    queryKey: ['animeSeasonNow', page],
-    queryFn: () => getAllAnimeSeasonNow(page),
-    retry: 3,
+    queryKey: ['animeGenres'],
+    queryFn: getAnimeGenres,
     staleTime: 1000 * 60 * 10,
   });
 
-  if (loadingSeasonNow) return <Loading />;
-  if (errorSeasonNow) return <ErrorMessage />;
+  const {
+    data: animeList,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['animeByGenre', genreId, page],
+    queryFn: () => getAnimeByGenre(genreId, page),
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const genreName = getGenreNameById(genres, genreId);
+
+  if (isLoading || isGenresLoading) {
+    return <Loading />;
+  }
+
+  if (isError || isGenresError) {
+    return <ErrorMessage />;
+  }
 
   return (
     <motion.div
-      className="justify-center min-h-screen pt-24 text-sm bg-red-950"
+      className="justify-center min-h-screen pt-20"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -53,7 +61,7 @@ const SeasonAnimePage = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        Airing {`${season} - ${year}`}
+        Anime Genre: {genreName}
       </motion.h1>
 
       <motion.div
@@ -70,7 +78,7 @@ const SeasonAnimePage = () => {
           },
         }}
       >
-        {animeSeasonNow.data?.map((anime) => (
+        {animeList.data?.map((anime) => (
           <Card key={anime.mal_id} all={anime} />
         ))}
       </motion.div>
@@ -78,7 +86,7 @@ const SeasonAnimePage = () => {
       <div className="flex items-center justify-center">
         <Pagination
           page={page}
-          lastPage={animeSeasonNow.pagination?.last_visible_page}
+          lastPage={animeList.pagination?.last_visible_page || 1}
           setPage={setPage}
         />
       </div>
@@ -89,4 +97,4 @@ const SeasonAnimePage = () => {
   );
 };
 
-export default SeasonAnimePage;
+export default PageGenre;

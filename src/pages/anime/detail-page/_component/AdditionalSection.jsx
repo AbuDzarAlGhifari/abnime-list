@@ -95,10 +95,7 @@ const AdditionalSection = ({ anime }) => {
             {anime.demographics?.length > 0 ? (
               <span className="flex flex-wrap gap-1">
                 {anime.demographics.map((demo) => (
-                  <span
-                    key={demo.mal_id}
-                    className="text-red-400 hover:underline"
-                  >
+                  <span key={demo.mal_id} className="text-red-400 ">
                     {demo.name}
                   </span>
                 ))}
@@ -113,10 +110,7 @@ const AdditionalSection = ({ anime }) => {
             {anime.producers?.length > 0 ? (
               <ul className="pl-4 space-y-1 text-gray-300 list-disc">
                 {anime.producers.map((producer) => (
-                  <li
-                    key={producer.mal_id}
-                    className="text-red-400 hover:underline"
-                  >
+                  <li key={producer.mal_id} className="text-red-400">
                     {producer.name}
                   </li>
                 ))}
@@ -127,16 +121,15 @@ const AdditionalSection = ({ anime }) => {
           </motion.li>
 
           <motion.li variants={itemVariants}>
-            <strong className="text-white">Licensors:</strong>{' '}
+            <strong className="block mb-2 text-white">Licensors:</strong>{' '}
             {anime.licensors?.length > 0 ? (
-              anime.licensors.map((licensor) => (
-                <span
-                  key={licensor.mal_id}
-                  className="mr-2 text-red-400 hover:underline"
-                >
-                  {licensor.name}
-                </span>
-              ))
+              <ul className="pl-4 space-y-1 text-gray-300 list-disc">
+                {anime.licensors.map((licensor) => (
+                  <li key={licensor.mal_id} className="text-red-400">
+                    {licensor.name}
+                  </li>
+                ))}
+              </ul>
             ) : (
               <span className="italic">??</span>
             )}
@@ -147,10 +140,7 @@ const AdditionalSection = ({ anime }) => {
             {anime.studios?.length > 0 ? (
               <ul className="pl-4 space-y-1 text-gray-300 list-disc">
                 {anime.studios.map((studio) => (
-                  <li
-                    key={studio.mal_id}
-                    className="text-red-400 hover:underline"
-                  >
+                  <li key={studio.mal_id} className="text-red-400">
                     {studio.name}
                   </li>
                 ))}
@@ -168,7 +158,7 @@ const AdditionalSection = ({ anime }) => {
         variants={itemVariants}
       >
         <strong className="text-white">Background:</strong>{' '}
-        <span className="italic">{anime.background || 'Not Available'}</span>
+        <span className="italic ">{anime.background || 'Not Available'}</span>
       </motion.div>
     </motion.div>
   );
