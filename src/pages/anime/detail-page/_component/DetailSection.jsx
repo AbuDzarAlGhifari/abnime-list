@@ -114,8 +114,8 @@ const DetailSection = ({ anime }) => {
           </div>
 
           <p className="sm:my-4 my-2 text-xs text-justify max-w-56 sm:max-w-[700px] md:my-6 md:text-base">
-            {anime.synopsis.slice(0, 200)}...
-            {anime.synopsis.length > 200 && (
+            {anime.synopsis?.slice(0, 200)}...
+            {anime.synopsis?.length > 200 && (
               <button
                 onClick={openModal}
                 className="ml-2 text-yellow-300 hover:underline"
@@ -124,6 +124,7 @@ const DetailSection = ({ anime }) => {
               </button>
             )}
           </p>
+
           {/* Trailer Button */}
           {anime.trailer?.url && (
             <Link

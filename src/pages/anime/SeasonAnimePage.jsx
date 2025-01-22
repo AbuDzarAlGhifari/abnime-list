@@ -5,7 +5,8 @@ import { ErrorMessage, Loading } from '@/components/common/Status';
 import { getAllAnimeSeasonNow } from '@/services/animeService';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const getCurrentSeasonAndYear = () => {
   const month = new Date().getMonth();
@@ -22,7 +23,10 @@ const getCurrentSeasonAndYear = () => {
 };
 
 const SeasonAnimePage = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get('page')) || 1;
+
+  const [page, setPage] = useState(initialPage);
 
   const { season, year } = getCurrentSeasonAndYear();
 
@@ -36,6 +40,10 @@ const SeasonAnimePage = () => {
     retry: 3,
     staleTime: 1000 * 60 * 10,
   });
+
+  useEffect(() => {
+    setSearchParams({ page: page.toString() });
+  }, [page, setSearchParams]);
 
   if (loadingSeasonNow) return <Loading />;
   if (errorSeasonNow) return <ErrorMessage />;

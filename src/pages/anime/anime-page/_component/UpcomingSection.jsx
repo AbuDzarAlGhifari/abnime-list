@@ -17,6 +17,7 @@ const UpcomingSection = () => {
     queryFn: getAnimeUpcoming,
     retry: 3,
     staleTime: 1000 * 60 * 20,
+    cacheTime: 1000 * 60 * 30,
   });
 
   const uniqueAnimeUpcoming = animeUpcoming?.filter(

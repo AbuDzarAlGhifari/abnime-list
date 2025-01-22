@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 function PageNotFound() {
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(3);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function PageNotFound() {
   }, [time, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-white bg-gradient-to-b from-red-700 to-red-900">
+    <div className="flex flex-col items-center justify-center min-h-screen text-white">
       <div className="text-yellow-400 font-extrabold text-[8rem] sm:text-[12rem] lg:text-[16rem] animate-pulse">
         404
       </div>

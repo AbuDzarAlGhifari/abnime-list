@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import Card from '@/components/common/card/Card';
 import Pagination from '@/components/common/Pagination';
 import ScrollTopButton from '@/components/common/ScrollTopButton';
@@ -5,7 +6,7 @@ import { ErrorMessage, Loading } from '@/components/common/Status';
 import { getAnimeByGenre, getAnimeGenres } from '@/services/animeService';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const getGenreNameById = (genres, genreId) => {
@@ -15,7 +16,9 @@ const getGenreNameById = (genres, genreId) => {
 
 const PageGenre = () => {
   const { genreId } = useParams();
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get('page')) || 1;
+  const [page, setPage] = useState(initialPage);
 
   const {
     data: genres,
@@ -39,6 +42,10 @@ const PageGenre = () => {
   });
 
   const genreName = getGenreNameById(genres, genreId);
+
+  useEffect(() => {
+    setSearchParams({ page: page.toString() });
+  }, [page, setSearchParams]);
 
   if (isLoading || isGenresLoading) {
     return <Loading />;
