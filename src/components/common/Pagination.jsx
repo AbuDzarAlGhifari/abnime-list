@@ -34,13 +34,17 @@ const Pagination = ({ page, lastPage, setPage }) => {
       scrollTop();
     }
   };
-
-  // Generate an array of pages for navigation
   const pageNumbers = [];
+  const range = 1;
+
   for (let i = 1; i <= lastPage; i++) {
-    if (i <= 3 || i >= lastPage - 2 || (i >= page - 2 && i <= page + 2)) {
+    if (i === 1) {
       pageNumbers.push(i);
-    } else if (i === page - 3 || i === page + 3) {
+    } else if (i === lastPage) {
+      pageNumbers.push(i);
+    } else if (i >= page - range && i <= page + range) {
+      pageNumbers.push(i);
+    } else if (i === page - range - 1 || i === page + range + 1) {
       pageNumbers.push('...');
     }
   }

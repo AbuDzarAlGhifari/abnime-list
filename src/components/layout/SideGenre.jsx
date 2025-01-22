@@ -15,6 +15,7 @@ const SideGenre = () => {
     queryKey: ['animeGenres'],
     queryFn: getAnimeGenres,
     staleTime: 1000 * 60 * 20,
+    cacheTime: 1000 * 60 * 30,
   });
 
   const genresToShow = showAll

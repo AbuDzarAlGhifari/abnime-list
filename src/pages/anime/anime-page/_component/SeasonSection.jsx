@@ -15,7 +15,8 @@ const SeasonSection = () => {
     queryKey: ['animeSeasonNow'],
     queryFn: getAnimeSeasonNow,
     retry: 3,
-    staleTime: 1000 * 60 * 15,
+    staleTime: 1000 * 60 * 20,
+    cacheTime: 1000 * 60 * 30,
   });
 
   const season = animeSeasonNow?.[0]?.season || 'Unknown';
@@ -36,7 +37,6 @@ const SeasonSection = () => {
         settings: {
           slidesToShow: 4,
           slidesToScroll: 3,
-          arrows: true,
         },
       },
       {
@@ -44,7 +44,6 @@ const SeasonSection = () => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 2,
-          arrows: true,
         },
       },
       {
@@ -52,7 +51,6 @@ const SeasonSection = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          arrows: false,
         },
       },
     ],

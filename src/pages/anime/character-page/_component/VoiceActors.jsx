@@ -16,7 +16,6 @@ const VoiceActors = ({ voices }) => {
         settings: {
           slidesToShow: 5,
           slidesToScroll: 5,
-          arrows: true,
         },
       },
       {
@@ -24,7 +23,6 @@ const VoiceActors = ({ voices }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          arrows: false,
         },
       },
     ],

@@ -5,10 +5,13 @@ import Card from '@/components/common/card/Card';
 import { getAllAnimeUpcoming } from '@/services/animeService';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const UpcomingAnimePage = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialPage = Number(searchParams.get('page')) || 1;
+  const [page, setPage] = useState(initialPage);
 
   const {
     data: animeUpcoming,
@@ -20,6 +23,10 @@ const UpcomingAnimePage = () => {
     retry: 3,
     staleTime: 1000 * 60 * 10,
   });
+
+  useEffect(() => {
+    setSearchParams({ page: page.toString() });
+  }, [page, setSearchParams]);
 
   if (loadingUpcoming) return <Loading />;
   if (errorUpcoming) return <ErrorMessage />;

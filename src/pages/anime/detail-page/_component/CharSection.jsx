@@ -19,7 +19,6 @@ const CharSection = ({ characters }) => {
         settings: {
           slidesToShow: 5,
           slidesToScroll: 4,
-          arrows: true,
         },
       },
       {
@@ -27,7 +26,6 @@ const CharSection = ({ characters }) => {
         settings: {
           slidesToShow: 5,
           slidesToScroll: 4,
-          arrows: true,
         },
       },
       {
@@ -35,7 +33,6 @@ const CharSection = ({ characters }) => {
         settings: {
           slidesToShow: 4,
           slidesToScroll: 3,
-          arrows: false,
         },
       },
     ],

@@ -15,6 +15,8 @@ const TopSection = () => {
     queryKey: ['animeData', selectedTab],
     queryFn: () => getAnimeTopData(selectedTab),
     enabled: !!selectedTab,
+    staleTime: 1000 * 60 * 20,
+    cacheTime: 1000 * 60 * 30,
   });
 
   const handleTabChange = (tab) => {
